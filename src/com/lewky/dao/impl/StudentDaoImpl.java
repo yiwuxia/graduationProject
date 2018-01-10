@@ -22,37 +22,37 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public Student login(String studentNum, String password) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Student student = null;
 		try {
-			// ÏÈÅĞ¶ÏÕËºÅÊÇ·ñÊÇÓĞĞ§ÕËºÅ
+			// å…ˆåˆ¤æ–­è´¦å·æ˜¯å¦æ˜¯æœ‰æ•ˆè´¦å·
 			pstmt = conn
 					.prepareStatement("select status from student where studentNum = ?");
-			// Ö¸¶¨studentNumµÄÖµ
+			// æŒ‡å®šstudentNumçš„å€¼
 			pstmt.setString(1, studentNum);
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				// ÕËºÅÎŞĞ§£¬·µ»Ønull
+				// è´¦å·æ— æ•ˆï¼Œè¿”å›null
 				if (!rs.getBoolean("status")) {
 					return null;
 				} else {
-					// ÕËºÅÓĞĞ§£¬½øĞĞµÇÂ¼²Ù×÷
+					// è´¦å·æœ‰æ•ˆï¼Œè¿›è¡Œç™»å½•æ“ä½œ
 					pstmt = conn
 							.prepareStatement("select * from student where studentNum = ? and password = ?");
-					// Ö¸¶¨studentNumµÄÖµ
+					// æŒ‡å®šstudentNumçš„å€¼
 					pstmt.setString(1, studentNum);
-					// Ö¸¶¨passwordµÄÖµ
+					// æŒ‡å®špasswordçš„å€¼
 					pstmt.setString(2, password);
-					// Ö´ĞĞsqlÓï¾ä
+					// æ‰§è¡Œsqlè¯­å¥
 					rs = pstmt.executeQuery();
 
 					if (rs.next()) {
-						// ÕÒµ½ÁËÑ§Éú£¬·â×°Êı¾İ
+						// æ‰¾åˆ°äº†å­¦ç”Ÿï¼Œå°è£…æ•°æ®
 						student = new Student();
 
 						student.setStudentNum(rs.getString("studentNum"));
@@ -76,9 +76,9 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public List<Course> listAllCourses() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Course> list = new ArrayList<Course>();
@@ -86,33 +86,33 @@ public class StudentDaoImpl implements StudentDao {
 		String schoolYear = null;
 		String semester = null;
 		try {
-			// ÏÈÅĞ¶ÏÊÇ·ñÒÑ¾­¿ª·ÅÑ¡¿Î
+			// å…ˆåˆ¤æ–­æ˜¯å¦å·²ç»å¼€æ”¾é€‰è¯¾
 			boolean status = showStatus();
-			// Èç¹ûµ±Ç°Îª²»¿ÉÑ¡¿Î×´Ì¬£¬·µ»Ønull
+			// å¦‚æœå½“å‰ä¸ºä¸å¯é€‰è¯¾çŠ¶æ€ï¼Œè¿”å›null
 			if (!status) {
 				// System.out.println(rs.getBoolean("status"));
-				// System.out.println("µ±Ç°²»¿ÉÑ¡¿Î£¡");
+				// System.out.println("å½“å‰ä¸å¯é€‰è¯¾ï¼");
 			} else {
-				// µ±Ç°Îª¿ÉÑ¡¿Î×´Ì¬
+				// å½“å‰ä¸ºå¯é€‰è¯¾çŠ¶æ€
 				pstmt = conn
 						.prepareStatement("select course.* from course where schoolYear = ? and semester = ? and status = 1 order by courseNum");
 
-				// ÉèÖÃµ±Ç°µÄÑ§ÄêºÍÑ§ÆÚ
+				// è®¾ç½®å½“å‰çš„å­¦å¹´å’Œå­¦æœŸ
 				schoolYear = showSchoolYear();
 				semester = showSemester();
 
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, schoolYear);
 				pstmt.setString(2, semester);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					// ÕÒµ½ÁË¿Î³ÌºÍ½ÌÊ¦£¬·â×°Êı¾İ
+					// æ‰¾åˆ°äº†è¯¾ç¨‹å’Œæ•™å¸ˆï¼Œå°è£…æ•°æ®
 					course = new Course();
 
 					try {
-						// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¿Î³Ì¶ÔÏóÖĞ
+						// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥è¯¾ç¨‹å¯¹è±¡ä¸­
 						String courseNum = URLEncoder.encode(
 								rs.getString("courseNum"), "UTF-8");
 						course.setCourseNum(courseNum);
@@ -149,9 +149,9 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public List<Course> listSelectedCourses(String studentNum) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Course> list = new ArrayList<Course>();
@@ -162,23 +162,23 @@ public class StudentDaoImpl implements StudentDao {
 			pstmt = conn
 					.prepareStatement("select course.* from course, course_selection "
 							+ "where course_selection.courseNum = course.courseNum and course_selection.studentNum = ? and schoolYear = ? and semester = ? order by courseNum");
-			// ÉèÖÃµ±Ç°µÄÑ§ÄêºÍÑ§ÆÚ
+			// è®¾ç½®å½“å‰çš„å­¦å¹´å’Œå­¦æœŸ
 			schoolYear = showSchoolYear();
 			semester = showSemester();
 
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, studentNum);
 			pstmt.setString(2, schoolYear);
 			pstmt.setString(3, semester);
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ÕÒµ½ÁË¿Î³ÌºÍ½ÌÊ¦£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†è¯¾ç¨‹å’Œæ•™å¸ˆï¼Œå°è£…æ•°æ®
 				course = new Course();
 
 				try {
-					// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¿Î³Ì¶ÔÏóÖĞ
+					// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥è¯¾ç¨‹å¯¹è±¡ä¸­
 					String courseNum = URLEncoder.encode(
 							rs.getString("courseNum"), "UTF-8");
 					course.setCourseNum(courseNum);
@@ -210,9 +210,9 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public boolean selectCourses(String studentNum, String[] courseNums) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -224,26 +224,26 @@ public class StudentDaoImpl implements StudentDao {
 		try {
 			for (int i = 0; i < courseNums.length; i++) {
 				String courseNum = courseNums[i];
-				// ÅĞ¶ÏÊÇ·ñ¿Î³ÌÒÑ¾­±»Ñ§ÉúÑ¡¹ıÁË
+				// åˆ¤æ–­æ˜¯å¦è¯¾ç¨‹å·²ç»è¢«å­¦ç”Ÿé€‰è¿‡äº†
 				pstmt = conn
 						.prepareStatement("select * from course_selection where courseNum = ? and studentNum = ?");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, courseNum);
 				pstmt.setString(2, studentNum);
 				
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
-					// ËµÃ÷¸ÃÑ§ÉúÒÑ¾­Ñ¡¹ı¸Ã¿Î³ÌÁË£¬Ìø¹ı¸Ã¿Î³Ì
+					// è¯´æ˜è¯¥å­¦ç”Ÿå·²ç»é€‰è¿‡è¯¥è¯¾ç¨‹äº†ï¼Œè·³è¿‡è¯¥è¯¾ç¨‹
 					continue;
 				}
 
-				// ÕÒµ½½ÌÊ¦¹¤ºÅ¡¢½ÌÊ¦ĞÕÃû¡¢¿Î³ÌÃû³Æ¡¢ÒÑÑ¡ÈËÊı
+				// æ‰¾åˆ°æ•™å¸ˆå·¥å·ã€æ•™å¸ˆå§“åã€è¯¾ç¨‹åç§°ã€å·²é€‰äººæ•°
 				pstmt = conn
 						.prepareStatement("select teacherNum, teacherName, courseName, selectedNum from course where courseNum = ?");
-				// Ö¸¶¨courseNumµÄÖµ
+				// æŒ‡å®šcourseNumçš„å€¼
 				pstmt.setString(1, courseNum);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					teacherNum = rs.getString("teacherNum");
@@ -252,23 +252,23 @@ public class StudentDaoImpl implements StudentDao {
 					selectedNum = rs.getInt("selectedNum");
 				}
 
-				// ÕÒµ½Ñ§ÉúĞÕÃû
+				// æ‰¾åˆ°å­¦ç”Ÿå§“å
 				pstmt = conn
 						.prepareStatement("select name from student where studentNum = ?");
-				// Ö¸¶¨studentNumµÄÖµ
+				// æŒ‡å®šstudentNumçš„å€¼
 				pstmt.setString(1, studentNum);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					studentName = rs.getString("name");
 				}
 
-				// ¿Î³ÌÑ¡Ôñ±íÖĞ²åÈëÊı¾İ
+				// è¯¾ç¨‹é€‰æ‹©è¡¨ä¸­æ’å…¥æ•°æ®
 				pstmt = conn
 						.prepareStatement("insert into "
 								+ "course_selection(studentNum, studentName, courseNum, courseName, teacherNum, teacherName)"
 								+ "value(?,?,?,?,?,?)");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, studentNum);
 				pstmt.setString(2, studentName);
 				pstmt.setString(3, courseNum);
@@ -276,17 +276,17 @@ public class StudentDaoImpl implements StudentDao {
 				pstmt.setString(5, teacherNum);
 				pstmt.setString(6, teacherName);
 
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 
-				// ½«¿Î³ÌµÄselectedNumµÄÖµ+1
+				// å°†è¯¾ç¨‹çš„selectedNumçš„å€¼+1
 				pstmt = conn
 						.prepareStatement("update course set selectedNum = ? where courseNum = ?");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setInt(1, selectedNum + 1);
 				pstmt.setString(2, courseNum);
 
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -300,45 +300,45 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public boolean quitCourses(String studentNum, String[] courseNums) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int selectedNum = 0;
 		try {
-			// ½«¿Î³Ì´ÓÊı¾İ¿âÖĞÉ¾³ı
+			// å°†è¯¾ç¨‹ä»æ•°æ®åº“ä¸­åˆ é™¤
 			for (int i = 0; i < courseNums.length; i++) {
 				String courseNum = courseNums[i];
 				pstmt = conn
 						.prepareStatement("delete from course_selection where studentNum = ? and courseNum = ?");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, studentNum);
 				pstmt.setString(2, courseNum);
 
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 
-				// ÕÒµ½ÒÑÑ¡ÈËÊı
+				// æ‰¾åˆ°å·²é€‰äººæ•°
 				pstmt = conn
 						.prepareStatement("select selectedNum from course where courseNum = ?");
-				// Ö¸¶¨courseNumµÄÖµ
+				// æŒ‡å®šcourseNumçš„å€¼
 				pstmt.setString(1, courseNum);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					selectedNum = rs.getInt("selectedNum");
 				}
 
-				// ½«¿Î³ÌµÄselectedNumµÄÖµ-1
+				// å°†è¯¾ç¨‹çš„selectedNumçš„å€¼-1
 				pstmt = conn
 						.prepareStatement("update course set selectedNum = ? where courseNum = ?");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setInt(1, selectedNum - 1);
 				pstmt.setString(2, courseNum);
 
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -352,22 +352,22 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public Student showInfo(String studentNum) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Student student = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select * from student where studentNum = ?");
-			// Ö¸¶¨studentNumµÄÖµ
+			// æŒ‡å®šstudentNumçš„å€¼
 			pstmt.setString(1, studentNum);
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				// ÕÒµ½ÁËÑ§Éú£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†å­¦ç”Ÿï¼Œå°è£…æ•°æ®
 				student = new Student();
 
 				student.setStudentNum(rs.getString("studentNum"));
@@ -393,19 +393,19 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public boolean changePassword(String studentNum, String newPassword) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn
 					.prepareStatement("update student set password = ? where studentNum = ?");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, newPassword);
 			pstmt.setString(2, studentNum);
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			n = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -419,9 +419,9 @@ public class StudentDaoImpl implements StudentDao {
 	public List<CourseSelection> showGrade(String studentNum,
 			int currentPageIndex, int count) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<CourseSelection> list = new ArrayList<CourseSelection>();
@@ -429,20 +429,20 @@ public class StudentDaoImpl implements StudentDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from course_selection where studentNum = ? order by studentNum limit ?, ?");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, studentNum);
 			pstmt.setInt(2, (currentPageIndex - 1) * count);
 			pstmt.setInt(3, count);
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ·â×°Êı¾İ
+				// å°è£…æ•°æ®
 				courseSelection = new CourseSelection();
 
 				try {
-					// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¶ÔÏóÖĞ
+					// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥å¯¹è±¡ä¸­
 					String courseNum = URLEncoder.encode(
 							rs.getString("courseNum"), "UTF-8");
 					courseSelection.setCourseNum(courseNum);
@@ -475,9 +475,9 @@ public class StudentDaoImpl implements StudentDao {
 	public List<CourseSelection> showGrade(String studentNum,
 			String schoolYear, String semester, int currentPageIndex, int count) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<CourseSelection> list = new ArrayList<CourseSelection>();
@@ -485,22 +485,22 @@ public class StudentDaoImpl implements StudentDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from course_selection, course where studentNum = ? and schoolYear = ? and semester = ? and course_selection.courseNum = course.courseNum order by studentNum limit ?, ?");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, studentNum);
 			pstmt.setString(2, schoolYear);
 			pstmt.setString(3, semester);
 			pstmt.setInt(4, (currentPageIndex - 1) * count);
 			pstmt.setInt(5, count);
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ·â×°Êı¾İ
+				// å°è£…æ•°æ®
 				courseSelection = new CourseSelection();
 
 				try {
-					// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¶ÔÏóÖĞ
+					// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥å¯¹è±¡ä¸­
 					String courseNum = URLEncoder.encode(
 							rs.getString("courseNum"), "UTF-8");
 					courseSelection.setCourseNum(courseNum);
@@ -533,9 +533,9 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public boolean showStatus() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -543,7 +543,7 @@ public class StudentDaoImpl implements StudentDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select status from authority_management where id = 1");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				status = rs.getBoolean("status");
@@ -560,9 +560,9 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public String showSemester() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -570,7 +570,7 @@ public class StudentDaoImpl implements StudentDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select semester from authority_management where id = 1");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				semester = rs.getString("semester");
@@ -587,9 +587,9 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public String showSchoolYear() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -597,7 +597,7 @@ public class StudentDaoImpl implements StudentDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select schoolYear from authority_management where id = 1");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				schoolYear = rs.getString("schoolYear");
@@ -615,48 +615,48 @@ public class StudentDaoImpl implements StudentDao {
 	public List<Course> listPageCourses(int currentPageIndex, int count,
 			String schoolYear, String semester) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Course> list = new ArrayList<Course>();
 		Course course = null;
 		try {
-			// ÏÈÅĞ¶ÏÊÇ·ñÒÑ¾­¿ª·ÅÑ¡¿Î
+			// å…ˆåˆ¤æ–­æ˜¯å¦å·²ç»å¼€æ”¾é€‰è¯¾
 			boolean status = showStatus();
-			// Èç¹ûµ±Ç°Îª²»¿ÉÑ¡¿Î×´Ì¬£¬·µ»Ønull
+			// å¦‚æœå½“å‰ä¸ºä¸å¯é€‰è¯¾çŠ¶æ€ï¼Œè¿”å›null
 			if (!status) {
 				// System.out.println(rs.getBoolean("status"));
-				// System.out.println("µ±Ç°²»¿ÉÑ¡¿Î£¡");
+				// System.out.println("å½“å‰ä¸å¯é€‰è¯¾ï¼");
 			} else {
-				// µ±Ç°Îª¿ÉÑ¡¿Î×´Ì¬
-				// °´Ñ§ÄêÑ§ÆÚÁĞ³öËùÓĞ¿Î³Ì
+				// å½“å‰ä¸ºå¯é€‰è¯¾çŠ¶æ€
+				// æŒ‰å­¦å¹´å­¦æœŸåˆ—å‡ºæ‰€æœ‰è¯¾ç¨‹
 				pstmt = conn
 						.prepareStatement("select * from course where schoolYear = ? and semester = ? order by courseNum limit ?, ?");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, schoolYear);
 				pstmt.setString(2, semester);
 				pstmt.setInt(3, (currentPageIndex - 1) * count);
 				pstmt.setInt(4, count);
 
-				// //ÁĞ³öËùÓĞµÄ¿Î³Ì
+				// //åˆ—å‡ºæ‰€æœ‰çš„è¯¾ç¨‹
 				// pstmt = conn
 				// .prepareStatement("select * from course order by courseNum limit ?, ?");
-				// // Ö¸¶¨?µÄÖµ
+				// // æŒ‡å®š?çš„å€¼
 				// pstmt.setInt(1, (currentPageIndex - 1) * count);
 				// pstmt.setInt(2, count);
 
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					// ÕÒµ½ÁË¿Î³Ì£¬·â×°Êı¾İ
+					// æ‰¾åˆ°äº†è¯¾ç¨‹ï¼Œå°è£…æ•°æ®
 					course = new Course();
 
 					try {
-						// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¿Î³Ì¶ÔÏóÖĞ
+						// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥è¯¾ç¨‹å¯¹è±¡ä¸­
 						String courseNum = URLEncoder.encode(
 								rs.getString("courseNum"), "UTF-8");
 						course.setCourseNum(courseNum);
@@ -694,29 +694,29 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public int showTotalDataCount(String schoolYear, String semester) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			// ÏÈÅĞ¶ÏÊÇ·ñÒÑ¾­¿ª·ÅÑ¡¿Î
+			// å…ˆåˆ¤æ–­æ˜¯å¦å·²ç»å¼€æ”¾é€‰è¯¾
 			boolean status = showStatus();
-			// Èç¹ûµ±Ç°Îª²»¿ÉÑ¡¿Î×´Ì¬£¬·µ»Ønull
+			// å¦‚æœå½“å‰ä¸ºä¸å¯é€‰è¯¾çŠ¶æ€ï¼Œè¿”å›null
 			if (!status) {
 				return 0;
 			}
 
 			pstmt = conn
 					.prepareStatement("select count(*) from course where schoolYear = ? and semester = ?");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, schoolYear);
 			pstmt.setString(2, semester);
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) { // Ö´ĞĞµÚÒ»Ìõ¼ÇÂ¼
+			if (rs.next()) { // æ‰§è¡Œç¬¬ä¸€æ¡è®°å½•
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -732,9 +732,9 @@ public class StudentDaoImpl implements StudentDao {
 	public List<Course> listPageSelectedCourses(String studentNum,
 			int currentPageIndex, int count) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -743,38 +743,38 @@ public class StudentDaoImpl implements StudentDao {
 		String schoolYear = null;
 		String semester = null;
 		try {
-			// ÏÈÅĞ¶ÏÊÇ·ñÒÑ¾­¿ª·ÅÑ¡¿Î
+			// å…ˆåˆ¤æ–­æ˜¯å¦å·²ç»å¼€æ”¾é€‰è¯¾
 			boolean status = showStatus();
-			// Èç¹ûµ±Ç°Îª²»¿ÉÑ¡¿Î×´Ì¬£¬·µ»Ønull
+			// å¦‚æœå½“å‰ä¸ºä¸å¯é€‰è¯¾çŠ¶æ€ï¼Œè¿”å›null
 			if (!status) {
 				// System.out.println(rs.getBoolean("status"));
-				// System.out.println("µ±Ç°²»¿ÉÑ¡¿Î£¡");
+				// System.out.println("å½“å‰ä¸å¯é€‰è¯¾ï¼");
 			} else {
-				// µ±Ç°Îª¿ÉÑ¡¿Î×´Ì¬
+				// å½“å‰ä¸ºå¯é€‰è¯¾çŠ¶æ€
 				pstmt = conn
 						.prepareStatement("select course.* from course, course_selection "
 								+ "where course_selection.courseNum = course.courseNum and course_selection.studentNum = ? and schoolYear = ? and semester = ? order by courseNum limit ?, ?");
 
-				// ÉèÖÃµ±Ç°µÄÑ§ÄêºÍÑ§ÆÚ
+				// è®¾ç½®å½“å‰çš„å­¦å¹´å’Œå­¦æœŸ
 				schoolYear = showSchoolYear();
 				semester = showSemester();
 
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, studentNum);
 				pstmt.setString(2, schoolYear);
 				pstmt.setString(3, semester);
 				pstmt.setInt(4, (currentPageIndex - 1) * count);
 				pstmt.setInt(5, count);
 
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					// ÕÒµ½ÁË¿Î³ÌºÍ½ÌÊ¦£¬·â×°Êı¾İ
+					// æ‰¾åˆ°äº†è¯¾ç¨‹å’Œæ•™å¸ˆï¼Œå°è£…æ•°æ®
 					course = new Course();
 
 					try {
-						// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¿Î³Ì¶ÔÏóÖĞ
+						// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥è¯¾ç¨‹å¯¹è±¡ä¸­
 						String courseNum = URLEncoder.encode(
 								rs.getString("courseNum"), "UTF-8");
 						course.setCourseNum(courseNum);
@@ -810,23 +810,23 @@ public class StudentDaoImpl implements StudentDao {
 	public int showCourseCount(String studentNum, String schoolYear,
 			String semester) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select count(*) from course_selection, course where studentNum = ? and schoolYear = ? and semester = ? and course.courseNum = course_selection.courseNum");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, studentNum);
 			pstmt.setString(2, schoolYear);
 			pstmt.setString(3, semester);
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) { // Ö´ĞĞµÚÒ»Ìõ¼ÇÂ¼
+			if (rs.next()) { // æ‰§è¡Œç¬¬ä¸€æ¡è®°å½•
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -841,21 +841,21 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public int showCourseCount(String studentNum) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select count(*) from course_selection, course where studentNum = ? and course.courseNum = course_selection.courseNum");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, studentNum);
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) { // Ö´ĞĞµÚÒ»Ìõ¼ÇÂ¼
+			if (rs.next()) { // æ‰§è¡Œç¬¬ä¸€æ¡è®°å½•
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -871,33 +871,33 @@ public class StudentDaoImpl implements StudentDao {
 	public List<Course> showTimetable(String studentNum, String schoolYear,
 			String semester) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Course> list = new ArrayList<Course>();
 		Course course = null;
 		try {
-			// µ±Ç°Îª¿ÉÑ¡¿Î×´Ì¬
+			// å½“å‰ä¸ºå¯é€‰è¯¾çŠ¶æ€
 			pstmt = conn
 					.prepareStatement("select course.* from course, course_selection "
 							+ "where course_selection.courseNum = course.courseNum and course_selection.studentNum = ? and schoolYear = ? and semester = ? order by courseNum");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, studentNum);
 			pstmt.setString(2, schoolYear);
 			pstmt.setString(3, semester);
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ÕÒµ½ÁË¿Î³Ì£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†è¯¾ç¨‹ï¼Œå°è£…æ•°æ®
 				course = new Course();
 
 				try {
-					// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¿Î³Ì¶ÔÏóÖĞ
+					// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥è¯¾ç¨‹å¯¹è±¡ä¸­
 					String courseNum = URLEncoder.encode(
 							rs.getString("courseNum"), "UTF-8");
 					course.setCourseNum(courseNum);
@@ -920,7 +920,7 @@ public class StudentDaoImpl implements StudentDao {
 				course.setDescription(rs.getString("description"));
 
 				if (!"".equals(course.getWeek())) {
-					//Ö»ÓĞÒÑ¾­°²ÅÅÁËÉÏ¿ÎÊ±¼äµØµãµÈµÄ¿Î³Ì²Å·ÅÈëlistÖĞ
+					//åªæœ‰å·²ç»å®‰æ’äº†ä¸Šè¯¾æ—¶é—´åœ°ç‚¹ç­‰çš„è¯¾ç¨‹æ‰æ”¾å…¥listä¸­
 					list.add(course);
 				}
 			}

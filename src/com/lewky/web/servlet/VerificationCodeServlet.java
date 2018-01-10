@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author 123 E-mail: lewkyliu@gmail.com
- * @version ´´½¨Ê±¼ä£º2017-4-1 ÏÂÎç4:27:09
+ * @version åˆ›å»ºæ—¶é—´ï¼š2017-4-1 ä¸‹åˆ4:27:09
  */
 @WebServlet("/VerificationCodeServlet")
-// Êä³öÑéÖ¤Âë
+// è¾“å‡ºéªŒè¯ç 
 public class VerificationCodeServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -29,40 +29,40 @@ public class VerificationCodeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		// ´´½¨±äÁ¿
+		// åˆ›å»ºå˜é‡
 		int width = 100;
 		int height = 23;
 
 		Random r = new Random();
-		// ´´½¨Ò»¸öÄÚ´æÍ¼Ïñ
+		// åˆ›å»ºä¸€ä¸ªå†…å­˜å›¾åƒ
 		BufferedImage image = new BufferedImage(width, height,
 				BufferedImage.TYPE_INT_RGB);
-		// ´´½¨»­±Ê
+		// åˆ›å»ºç”»ç¬”
 		Graphics g = image.getGraphics();
 
-		// Ìî³äÏÂ¾ØĞÎµÄ±³¾°É«
-		// Éè¶¨»­±ÊÑÕÉ«
+		// å¡«å……ä¸‹çŸ©å½¢çš„èƒŒæ™¯è‰²
+		// è®¾å®šç”»ç¬”é¢œè‰²
 		g.setColor(Color.white);
-		// Ìî³ä¾ØĞÎµÄ±³¾°
+		// å¡«å……çŸ©å½¢çš„èƒŒæ™¯
 		g.fillRect(1, 1, width-2, height-2);
 		
-		// Ö¸¶¨±ß¿òµÄÑÕÉ«
+		// æŒ‡å®šè¾¹æ¡†çš„é¢œè‰²
 		g.setColor(Color.gray);
-		// »­Í¼ÏñµÄ±ß¿ò
+		// ç”»å›¾åƒçš„è¾¹æ¡†
 		g.drawRect(0, 0, width, height);
 		
-		// Éè¶¨»­±ÊÑÕÉ«
+		// è®¾å®šç”»ç¬”é¢œè‰²
 		g.setColor(Color.gray);
-		//»­4Ìõ¸ÉÈÅÏß
+		//ç”»4æ¡å¹²æ‰°çº¿
 		for (int i = 0; i < 4; i++) {
 			g.drawLine(r.nextInt(width), r.nextInt(height), r.nextInt(width), r.nextInt(height));
 		}
 
 
-		// ÉèÖÃ×ÖÌå
-		g.setFont(new Font("Ó×Ô²", Font.BOLD + Font.ITALIC, 22));
+		// è®¾ç½®å­—ä½“
+		g.setFont(new Font("å¹¼åœ†", Font.BOLD + Font.ITALIC, 22));
 
-		// Ëæ»ú²úÉú4¸ö×Ö·ûÊä³öµ½Ò³Ãæ
+		// éšæœºäº§ç”Ÿ4ä¸ªå­—ç¬¦è¾“å‡ºåˆ°é¡µé¢
 		String s = "abcdefghjkmnpqrstuvwxyABCDEFGHJKLMNPQRSTUVWXYXZ3456789";
 		String code = "";
 		g.setColor(Color.blue);
@@ -73,10 +73,10 @@ public class VerificationCodeServlet extends HttpServlet {
 		}
 //		System.out.println(code);
 		
-		//½«code´æµ½session¶ÔÏóÖĞ
+		//å°†codeå­˜åˆ°sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("code", code);
 
-		// ½«Í¼ÏñÊä³öµ½¿Í»§¶Ë
+		// å°†å›¾åƒè¾“å‡ºåˆ°å®¢æˆ·ç«¯
 		ImageIO.write(image, "jpg", response.getOutputStream());
 	}
 

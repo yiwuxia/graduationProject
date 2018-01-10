@@ -6,10 +6,10 @@ import java.util.UUID;
 
 import sun.misc.BASE64Encoder;
 
-//用来做一些常用的操作
+//鐢ㄦ潵鍋氫竴浜涘父鐢ㄧ殑鎿嶄綔
 public class WebTools {
 
-	// 获取一个唯一的id
+	// 鑾峰彇涓�涓敮涓�鐨刬d
 	public static String createNewId() {
 		String id = UUID.randomUUID().toString();
 		MessageDigest md;

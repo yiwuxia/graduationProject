@@ -10,37 +10,37 @@ import com.lewky.bean.Teacher;
 
 public class Page implements Serializable{
 	
-	private int currentPageIndex = 1;	//µ±Ç°Ò³µÄË÷Òı
+	private int currentPageIndex = 1;	//å½“å‰é¡µçš„ç´¢å¼•
 	
-	private int pageCount;	//×Ü¹²ÓĞ¶àÉÙÒ³
+	private int pageCount;	//æ€»å…±æœ‰å¤šå°‘é¡µ
 	
-	private int count ;	//Ã¿Ò³ÒªÏÔÊ¾¶àÉÙÊı¾İ
+	private int count ;	//æ¯é¡µè¦æ˜¾ç¤ºå¤šå°‘æ•°æ®
 	
-	private int totalDataCount;	//±íÖĞÓĞ¶àÉÙÌõÊı¾İ
+	private int totalDataCount;	//è¡¨ä¸­æœ‰å¤šå°‘æ¡æ•°æ®
 	
-	private int startIndex;	//¿ªÊ¼Ò³Âë
+	private int startIndex;	//å¼€å§‹é¡µç 
 	
-	private int endIndex;	//½áÊøÒ³Âë
+	private int endIndex;	//ç»“æŸé¡µç 
 	
-	private List<Course> coursesList;	//Ò³ÃæÒªÏÔÊ¾µÄËùÓĞ¿Î³ÌÊı¾İµÄ¼¯ºÏ
+	private List<Course> coursesList;	//é¡µé¢è¦æ˜¾ç¤ºçš„æ‰€æœ‰è¯¾ç¨‹æ•°æ®çš„é›†åˆ
 
-	private List<Student> studentsList;	//Ò³ÃæÒªÏÔÊ¾µÄËùÓĞÑ§ÉúÊı¾İµÄ¼¯ºÏ
+	private List<Student> studentsList;	//é¡µé¢è¦æ˜¾ç¤ºçš„æ‰€æœ‰å­¦ç”Ÿæ•°æ®çš„é›†åˆ
 	
-	private List<Teacher> teachersList;	//Ò³ÃæÒªÏÔÊ¾µÄËùÓĞ½ÌÊ¦Êı¾İµÄ¼¯ºÏ
+	private List<Teacher> teachersList;	//é¡µé¢è¦æ˜¾ç¤ºçš„æ‰€æœ‰æ•™å¸ˆæ•°æ®çš„é›†åˆ
 	
-	private List<CourseSelection> courseSelectionsList;	//Ò³ÃæÒªÏÔÊ¾µÄËùÓĞ¿Î³ÌÏêÏ¸ĞÅÏ¢µÄ¼¯ºÏ
+	private List<CourseSelection> courseSelectionsList;	//é¡µé¢è¦æ˜¾ç¤ºçš„æ‰€æœ‰è¯¾ç¨‹è¯¦ç»†ä¿¡æ¯çš„é›†åˆ
 	
 	public Page(int totalDataCount, int count){
 		this.totalDataCount = totalDataCount;
 		this.count = count;
 		
-		//¼ÆËã¹²ÓĞ¶àÉÙÒ³
+		//è®¡ç®—å…±æœ‰å¤šå°‘é¡µ
 		pageCount = (totalDataCount + count - 1)/count;
 		
 		if (pageCount <= 5) {
-			//Èç¹û×ÜÒ³ÊıĞ¡ÓÚ5£¬½áÊøÒ³ÂëÎª×ÜÒ³ÂëÊı
+			//å¦‚æœæ€»é¡µæ•°å°äº5ï¼Œç»“æŸé¡µç ä¸ºæ€»é¡µç æ•°
 			endIndex = pageCount;
-			//¼ÆËã¿ªÊ¼Ò³Âë
+			//è®¡ç®—å¼€å§‹é¡µç 
 			if (currentPageIndex < 3) {
 				startIndex = 1;
 				endIndex = pageCount;
@@ -71,9 +71,9 @@ public class Page implements Serializable{
 		this.currentPageIndex = currentPageIndex;
 		
 		if (pageCount <= 5) {
-			//Èç¹û×ÜÒ³ÊıĞ¡ÓÚ5£¬½áÊøÒ³ÂëÎª×ÜÒ³ÂëÊı
+			//å¦‚æœæ€»é¡µæ•°å°äº5ï¼Œç»“æŸé¡µç ä¸ºæ€»é¡µç æ•°
 			endIndex = pageCount;
-			//¼ÆËã¿ªÊ¼Ò³Âë
+			//è®¡ç®—å¼€å§‹é¡µç 
 			if (currentPageIndex < 3) {
 				startIndex = 1;
 				endIndex = pageCount;

@@ -4,31 +4,31 @@ import java.io.Serializable;
 
 public class CourseFormBean implements Serializable {
 
-	private String courseNum; // 课程号码
+	private String courseNum; // 璇剧▼鍙风爜
 
-	private String courseName; // 课程名称
+	private String courseName; // 璇剧▼鍚嶇О
 
-	private String teacherNum; // 教师工号
+	private String teacherNum; // 鏁欏笀宸ュ彿
 
-	private String teacherName; // 教师姓名
+	private String teacherName; // 鏁欏笀濮撳悕
 
-	private String schoolYear; // 学年
+	private String schoolYear; // 瀛﹀勾
 
-	private String semester; // 学期
+	private String semester; // 瀛︽湡
 
-	private String coursePeriod; // 学时
+	private String coursePeriod; // 瀛︽椂
 
-	private String courseCredit; // 学分
+	private String courseCredit; // 瀛﹀垎
 	
-	private String week; // 上课周次
+	private String week; // 涓婅鍛ㄦ
 
-	private String weekday; // 上课日次
+	private String weekday; // 涓婅鏃ユ
 	
-	private String time; // 上课节次
+	private String time; // 涓婅鑺傛
 	
-	private String place; // 上课地点
+	private String place; // 涓婅鍦扮偣
 
-	private String description; // 课程介绍
+	private String description; // 璇剧▼浠嬬粛
 
 	public String getCourseNum() {
 		return courseNum;

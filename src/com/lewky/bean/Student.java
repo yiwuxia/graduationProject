@@ -5,27 +5,27 @@ import java.util.Date;
 
 public class Student implements Serializable {
 
-	private String studentNum; // Ñ§ºÅ
+	private String studentNum; // å­¦å·
 
-	private String name; // ĞÕÃû
+	private String name; // å§“å
 
-	private String deptNum; // ÏµºÅÂë
+	private String deptNum; // ç³»å·ç 
 
-	private String deptName; // ÏµÃû³Æ
+	private String deptName; // ç³»åç§°
 
-	private String majorNum; // ×¨ÒµºÅÂë
+	private String majorNum; // ä¸“ä¸šå·ç 
 
-	private String majorName; // ×¨ÒµÃû³Æ
+	private String majorName; // ä¸“ä¸šåç§°
 
-	private String gradeNum; // ¼¶ºÅ
+	private String gradeNum; // çº§å·
 	
-	private String classNum; // °àºÅ
+	private String classNum; // ç­å·
 
-	private String gender; // ĞÔ±ğ
+	private String gender; // æ€§åˆ«
 
-	private Date birthday; // ³öÉúÈÕÆÚ
+	private Date birthday; // å‡ºç”Ÿæ—¥æœŸ
 
-	private String password; // ÃÜÂë
+	private String password; // å¯†ç 
 
 	public String getStudentNum() {
 		return studentNum;

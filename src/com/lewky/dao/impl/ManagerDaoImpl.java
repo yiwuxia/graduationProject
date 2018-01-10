@@ -24,9 +24,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public Manager login(String managerNum, String password) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Manager manager = null;
@@ -34,15 +34,15 @@ public class ManagerDaoImpl implements ManagerDao {
 			pstmt = conn
 					.prepareStatement("select managerNum, name, gender, birthday, password "
 							+ "from manager where managerNum = ? and password = ?");
-			// Ö¸¶¨studentNumµÄÖµ
+			// æŒ‡å®šstudentNumçš„å€¼
 			pstmt.setString(1, managerNum);
-			// Ö¸¶¨passwordµÄÖµ
+			// æŒ‡å®špasswordçš„å€¼
 			pstmt.setString(2, password);
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				// ÕÒµ½ÁË¹ÜÀíÔ±£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†ç®¡ç†å‘˜ï¼Œå°è£…æ•°æ®
 				manager = new Manager();
 
 				manager.setManagerNum(rs.getString("managerNum"));
@@ -63,9 +63,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	public List<Student> listPageStudents(int currentPageIndex, int count,
 			String majorName) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Student> list = new ArrayList<Student>();
@@ -73,16 +73,16 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from student where majorName = ? and status = 1 order by studentNum limit ?,?");
-			//Ö¸¶¨?µÄÖµ
+			//æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, majorName);
 			pstmt.setInt(2, (currentPageIndex - 1)*count);
 			pstmt.setInt(3, count);
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ÕÒµ½ÁËÑ§Éú£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†å­¦ç”Ÿï¼Œå°è£…æ•°æ®
 				student = new Student();
 
 				student.setStudentNum(rs.getString("studentNum"));
@@ -111,9 +111,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	public List<Teacher> listPageTeachers(int currentPageIndex, int count,
 			String deptName) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Teacher> list = new ArrayList<Teacher>();
@@ -121,16 +121,16 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from teacher where deptName = ? and status = 1 order by teacherNum limit ?,?");
-			//Ö¸¶¨?µÄÖµ
+			//æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, deptName);
 			pstmt.setInt(2, (currentPageIndex - 1)*count);
 			pstmt.setInt(3, count);
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ÕÒµ½ÁË½ÌÊ¦£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†æ•™å¸ˆï¼Œå°è£…æ•°æ®
 				teacher = new Teacher();
 
 				teacher.setTeacherNum(rs.getString("teacherNum"));
@@ -157,9 +157,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public List<Course> listCourses() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -168,15 +168,15 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from course order by courseNum");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ÕÒµ½ÁË¿Î³ÌºÍ½ÌÊ¦£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†è¯¾ç¨‹å’Œæ•™å¸ˆï¼Œå°è£…æ•°æ®
 				course = new Course();
 
 				try {
-					// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¿Î³Ì¶ÔÏóÖĞ
+					// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥è¯¾ç¨‹å¯¹è±¡ä¸­
 					String courseNum = URLEncoder.encode(
 							rs.getString("courseNum"), "UTF-8");
 					course.setCourseNum(courseNum);
@@ -212,9 +212,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public List<Course> listExaminedCourses() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -223,14 +223,14 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from course_examination order by courseNum");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ÕÒµ½ÁË¿Î³ÌºÍ½ÌÊ¦£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†è¯¾ç¨‹å’Œæ•™å¸ˆï¼Œå°è£…æ•°æ®
 				course = new Course();
 				try {
-					// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¿Î³Ì¶ÔÏóÖĞ
+					// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥è¯¾ç¨‹å¯¹è±¡ä¸­
 					String courseNum = URLEncoder.encode(
 							rs.getString("courseNum"), "UTF-8");
 					course.setCourseNum(courseNum);
@@ -262,36 +262,36 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean addStudent(Student student) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select deptNum from dept where deptName = ?");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, student.getDeptName());
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				// ÕÒµ½ÁË×¨Òµ£¬½«×¨ÒµºÅÂë´æÈëstudent¶ÔÏóÖĞ
+				// æ‰¾åˆ°äº†ä¸“ä¸šï¼Œå°†ä¸“ä¸šå·ç å­˜å…¥studentå¯¹è±¡ä¸­
 				student.setDeptNum(rs.getString("deptNum"));
 			}
 			
 			pstmt = conn
 					.prepareStatement("select majorNum from major where majorName = ?");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, student.getMajorName());
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				// ÕÒµ½ÁË×¨Òµ£¬½«×¨ÒµºÅÂë´æÈëstudent¶ÔÏóÖĞ
+				// æ‰¾åˆ°äº†ä¸“ä¸šï¼Œå°†ä¸“ä¸šå·ç å­˜å…¥studentå¯¹è±¡ä¸­
 				student.setMajorNum(rs.getString("majorNum"));
 			}
 
-			//¶Ô°àºÅ½øĞĞ´¦Àí
+			//å¯¹ç­å·è¿›è¡Œå¤„ç†
 			int classNum = Integer.parseInt(student.getMajorNum())%100*100 + Integer.parseInt(student.getClassNum());
 			
 			if (student.getBirthday() != null) {
@@ -299,7 +299,7 @@ public class ManagerDaoImpl implements ManagerDao {
 						.prepareStatement("insert into "
 								+ "student(studentNum, deptNum, deptName, majorNum, majorName, classNum, name, gender, birthday, password, gradeNum)"
 								+ "value(?,?,?,?,?,?,?,?,?,?,?)");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, student.getStudentNum());
 				pstmt.setString(2, student.getDeptNum());
 				pstmt.setString(3, student.getDeptName());
@@ -317,7 +317,7 @@ public class ManagerDaoImpl implements ManagerDao {
 						.prepareStatement("insert into "
 								+ "student(studentNum,  deptNum, deptName, majorNum, majorName, classNum, name, gender, password, gradeNum)"
 								+ "value(?,?,?,?,?,?,?,?,?,?)");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, student.getStudentNum());
 				pstmt.setString(2, student.getDeptNum());
 				pstmt.setString(3, student.getDeptName());
@@ -331,25 +331,25 @@ public class ManagerDaoImpl implements ManagerDao {
 			}
 
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			n = pstmt.executeUpdate();
 
-			//ÔÙ²éÑ¯class±íÖĞÊÇ·ñ´æÔÚÏàÓ¦µÄ°àºÅ£¬Èç¹û²»´æÔÚÔò½«°àºÅ¡¢¼¶ºÅ¡¢×¨ÒµºÅÂëĞÅÏ¢´æÈëclass±íÖĞ
+			//å†æŸ¥è¯¢classè¡¨ä¸­æ˜¯å¦å­˜åœ¨ç›¸åº”çš„ç­å·ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™å°†ç­å·ã€çº§å·ã€ä¸“ä¸šå·ç ä¿¡æ¯å­˜å…¥classè¡¨ä¸­
 			pstmt = conn.prepareStatement("select * from class where classNum = ?");
-			//Ö¸¶¨?µÄÖµ
+			//æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, classNum + "");
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			
 			if (!rs.next()) {
 				pstmt = conn.prepareStatement("insert into class(classNum, majorNum, gradeNum) value(?,?,?)");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, classNum + "");
 				pstmt.setString(2, student.getMajorNum());
 				pstmt.setString(3, student.getGradeNum());
 				
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 			}
 			
@@ -365,21 +365,21 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean addTeacher(Teacher teacher) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select deptNum from dept where deptName = ?");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, teacher.getDeptName());
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				// ÕÒµ½ÁËÏµ£¬½«ÏµºÅÂë´æÈëteacher¶ÔÏóÖĞ
+				// æ‰¾åˆ°äº†ç³»ï¼Œå°†ç³»å·ç å­˜å…¥teacherå¯¹è±¡ä¸­
 				teacher.setDeptNum(rs.getString("deptNum"));
 			}
 
@@ -388,7 +388,7 @@ public class ManagerDaoImpl implements ManagerDao {
 						.prepareStatement("insert into "
 								+ "teacher(teacherNum, deptNum, deptName, name, gender, birthday, password, teacherTitle, email, cellphone)"
 								+ "value(?,?,?,?,?,?,?,?,?,?)");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, teacher.getTeacherNum());
 				pstmt.setString(2, teacher.getDeptNum());
 				pstmt.setString(3, teacher.getDeptName());
@@ -405,7 +405,7 @@ public class ManagerDaoImpl implements ManagerDao {
 						.prepareStatement("insert into "
 								+ "teacher(teacherNum, deptNum, deptName, name, gender, password, teacherTitle, email, cellphone)"
 								+ "value(?,?,?,?,?,?,?,?,?)");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, teacher.getTeacherNum());
 				pstmt.setString(2, teacher.getDeptNum());
 				pstmt.setString(3, teacher.getDeptName());
@@ -417,7 +417,7 @@ public class ManagerDaoImpl implements ManagerDao {
 				pstmt.setString(9, teacher.getCellphone());
 			}
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			n = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -431,25 +431,25 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean examineCourses(String[] courseNums, String op) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		Course course = null;
 		try {
 			for (int i = 0; i < courseNums.length; i++) {
-				// Í¨¹ı¿Î³ÌºÅÂë²éÑ¯µ½ÒªÉóºËµÄ¿Î³Ì
+				// é€šè¿‡è¯¾ç¨‹å·ç æŸ¥è¯¢åˆ°è¦å®¡æ ¸çš„è¯¾ç¨‹
 				pstmt = conn
 						.prepareStatement("select course_examination.* from course_examination where courseNum = ?");
-				// Ö¸¶¨courseNumµÄÖµ
+				// æŒ‡å®šcourseNumçš„å€¼
 				pstmt.setString(1, courseNums[i]);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				rs = pstmt.executeQuery();
 
 				if (rs.next()) {
-					// ÕÒµ½ÁË¿Î³Ì£¬·â×°Êı¾İ
+					// æ‰¾åˆ°äº†è¯¾ç¨‹ï¼Œå°è£…æ•°æ®
 					course = new Course();
 
 					course.setCourseName(rs.getString("courseName"));
@@ -463,22 +463,22 @@ public class ManagerDaoImpl implements ManagerDao {
 					course.setDescription(rs.getString("description"));
 				}
 
-				// ÎŞÂÛ½øĞĞÄÄÖÖ²Ù×÷¶¼ÒªÏÈ½«¿Î³Ì´ÓÉóºË±íÖĞÏÈÉ¾È¥
+				// æ— è®ºè¿›è¡Œå“ªç§æ“ä½œéƒ½è¦å…ˆå°†è¯¾ç¨‹ä»å®¡æ ¸è¡¨ä¸­å…ˆåˆ å»
 				pstmt = conn
 						.prepareStatement("delete from course_examination where courseNum = ?");
-				// Ö¸¶¨courseNumµÄÖµ
+				// æŒ‡å®šcourseNumçš„å€¼
 				pstmt.setString(1, courseNums[i]);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 
-				// ÅĞ¶Ï¸Ã¿Î³ÌÊÇ·ñÍ¨¹ıÉóºË
+				// åˆ¤æ–­è¯¥è¯¾ç¨‹æ˜¯å¦é€šè¿‡å®¡æ ¸
 				if (op.equals("pass")) {
-					// ¿Î³ÌÍ¨¹ıÉóºË£¬´æÈëÊı¾İ¿âµÄcourse±íÖĞ
+					// è¯¾ç¨‹é€šè¿‡å®¡æ ¸ï¼Œå­˜å…¥æ•°æ®åº“çš„courseè¡¨ä¸­
 					pstmt = conn
 							.prepareStatement("insert into "
 									+ "course(courseNum, courseName, teacherNum, teacherName, schoolYear, semester, coursePeriod, courseCredit, description)"
 									+ "value(?,?,?,?,?,?,?,?,?)");
-					// Ö¸¶¨?µÄÖµ
+					// æŒ‡å®š?çš„å€¼
 					pstmt.setString(1, course.getCourseNum());
 					pstmt.setString(2, course.getCourseName());
 					pstmt.setString(3, course.getTeacherNum());
@@ -489,7 +489,7 @@ public class ManagerDaoImpl implements ManagerDao {
 					pstmt.setString(8, course.getCourseCredit());
 					pstmt.setString(9, course.getDescription());
 
-					// Ö´ĞĞsqlÓï¾ä
+					// æ‰§è¡Œsqlè¯­å¥
 					n = pstmt.executeUpdate();
 				}
 
@@ -506,30 +506,30 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean deleteStudents(String[] studentNums) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			// ½«Ñ§ÉúµÄ×´Ì¬ĞŞ¸ÄÎªÎŞĞ§ÕËºÅ
+			// å°†å­¦ç”Ÿçš„çŠ¶æ€ä¿®æ”¹ä¸ºæ— æ•ˆè´¦å·
 			for (int i = 0; i < studentNums.length; i++) {
 				String studentNum = studentNums[i];
 				pstmt = conn
 						.prepareStatement("update student set status = 0 where studentNum = ?");
-				// Ö¸¶¨studentNumµÄÖµ
+				// æŒ‡å®šstudentNumçš„å€¼
 				pstmt.setString(1, studentNum);
 				
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 				
-				//½«Ñ§ÉúÑ¡¿Î±íÀïµÄÏà¹Ø¼ÇÂ¼Ò²ÉèÎªÎŞĞ§¼ÇÂ¼
+				//å°†å­¦ç”Ÿé€‰è¯¾è¡¨é‡Œçš„ç›¸å…³è®°å½•ä¹Ÿè®¾ä¸ºæ— æ•ˆè®°å½•
 				pstmt = conn.prepareStatement("update course_selection set status = 0 where studentNum = ?");
-				// Ö¸¶¨studentNumµÄÖµ
+				// æŒ‡å®šstudentNumçš„å€¼
 				pstmt.setString(1, studentNum);
 				
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -544,37 +544,37 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean deleteTeachers(String[] teacherNums) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			// ½«½ÌÊ¦µÄ×´Ì¬ĞŞ¸ÄÎªÎŞĞ§ÕËºÅ
+			// å°†æ•™å¸ˆçš„çŠ¶æ€ä¿®æ”¹ä¸ºæ— æ•ˆè´¦å·
 			for (int i = 0; i < teacherNums.length; i++) {
 				String teacherNum = teacherNums[i];
 				pstmt = conn
 						.prepareStatement("update teacher set status = 0 where teacherNum = ?");
-				// Ö¸¶¨teacherNumµÄÖµ
+				// æŒ‡å®šteacherNumçš„å€¼
 				pstmt.setString(1, teacherNum);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 				
-				//½«course±íÖĞ½ÌÊ¦Ïà¹ØµÄ¼ÇÂ¼È«ÉèÖÃÎªÎŞĞ§¼ÇÂ¼
+				//å°†courseè¡¨ä¸­æ•™å¸ˆç›¸å…³çš„è®°å½•å…¨è®¾ç½®ä¸ºæ— æ•ˆè®°å½•
 				pstmt = conn
 						.prepareStatement("update course set status = 0 where teacherNum = ?");
-				// Ö¸¶¨teacherNumµÄÖµ
+				// æŒ‡å®šteacherNumçš„å€¼
 				pstmt.setString(1, teacherNum);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 				
-				//½«course_selection±íÖĞ½ÌÊ¦Ïà¹ØµÄ¼ÇÂ¼È«ÉèÖÃÎªÎŞĞ§¼ÇÂ¼
+				//å°†course_selectionè¡¨ä¸­æ•™å¸ˆç›¸å…³çš„è®°å½•å…¨è®¾ç½®ä¸ºæ— æ•ˆè®°å½•
 				pstmt = conn
 						.prepareStatement("update course_selection set status = 0 where teacherNum = ?");
-				// Ö¸¶¨teacherNumµÄÖµ
+				// æŒ‡å®šteacherNumçš„å€¼
 				pstmt.setString(1, teacherNum);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -589,28 +589,28 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean deleteCourses(String[] courseNums) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			// ½«¿Î³Ì´ÓÊı¾İ¿âÖĞÉ¾³ı
+			// å°†è¯¾ç¨‹ä»æ•°æ®åº“ä¸­åˆ é™¤
 			for (int i = 0; i < courseNums.length; i++) {
 				String courseNum = courseNums[i];
 				pstmt = conn
 						.prepareStatement("delete from course_selection where courseNum = ?");
-				// Ö¸¶¨courseNumµÄÖµ
+				// æŒ‡å®šcourseNumçš„å€¼
 				pstmt.setString(1, courseNum);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 				
 				pstmt = conn
 						.prepareStatement(" delete from course where courseNum = ?");
-				// Ö¸¶¨courseNumµÄÖµ
+				// æŒ‡å®šcourseNumçš„å€¼
 				pstmt.setString(1, courseNum);
-				// Ö´ĞĞsqlÓï¾ä
+				// æ‰§è¡Œsqlè¯­å¥
 				n = pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -625,9 +625,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean updateCourse(Course course) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
@@ -635,7 +635,7 @@ public class ManagerDaoImpl implements ManagerDao {
 			pstmt = conn
 					.prepareStatement("update "
 							+ "course set courseName=?, teacherNum=?, teacherName=?, schoolYear=?, semester=?, coursePeriod=?, courseCredit=?, time=?, place=?, description=?, week = ?, weekday = ? where courseNum = ?");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, course.getCourseName());
 			pstmt.setString(2, course.getTeacherNum());
 			pstmt.setString(3, course.getTeacherName());
@@ -650,7 +650,7 @@ public class ManagerDaoImpl implements ManagerDao {
 			pstmt.setString(12, course.getWeekday());
 			pstmt.setString(13, course.getCourseNum());
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			n = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -664,9 +664,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean updateStudent(Student student) {
 		
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
@@ -675,7 +675,7 @@ public class ManagerDaoImpl implements ManagerDao {
 				pstmt = conn
 						.prepareStatement("update "
 								+ "student set name=?, deptNum=?, deptName=?, majorNum=?, majorName=?, gradeNum=?, classNum=?, gender=?, birthday=?, password=? where studentNum = ?");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, student.getName());
 				pstmt.setString(2, student.getDeptNum());
 				pstmt.setString(3, student.getDeptName());
@@ -692,7 +692,7 @@ public class ManagerDaoImpl implements ManagerDao {
 				pstmt = conn
 						.prepareStatement("update "
 								+ "student set name=?, deptNum=?, deptName=?, majorNum=?, majorName=?, gradeNum=?, classNum=?, gender=?, password=?, birthday=null where studentNum = ?");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, student.getName());
 				pstmt.setString(2, student.getDeptNum());
 				pstmt.setString(3, student.getDeptName());
@@ -705,7 +705,7 @@ public class ManagerDaoImpl implements ManagerDao {
 				pstmt.setString(10, student.getStudentNum());
 			}
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			n = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -719,9 +719,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean updateTeacher(Teacher teacher) {
 		
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
@@ -730,7 +730,7 @@ public class ManagerDaoImpl implements ManagerDao {
 				pstmt = conn
 						.prepareStatement("update "
 								+ "teacher set name=?, deptNum=?, deptName=?, gender=?, birthday=?, password=?, teacherTitle=?, email=?, cellphone=? where teacherNum = ?");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, teacher.getName());
 				pstmt.setString(2, teacher.getDeptNum());
 				pstmt.setString(3, teacher.getDeptName());
@@ -746,7 +746,7 @@ public class ManagerDaoImpl implements ManagerDao {
 				pstmt = conn
 						.prepareStatement("update "
 								+ "teacher set name=?, deptNum=?, deptName=?, gender=?, password=?, teacherTitle=?, email=?, cellphone=?, birthday=null where teacherNum = ?");
-				// Ö¸¶¨?µÄÖµ
+				// æŒ‡å®š?çš„å€¼
 				pstmt.setString(1, teacher.getName());
 				pstmt.setString(2, teacher.getDeptNum());
 				pstmt.setString(3, teacher.getDeptName());
@@ -758,7 +758,7 @@ public class ManagerDaoImpl implements ManagerDao {
 				pstmt.setString(9, teacher.getTeacherNum());
 			}
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			n = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -772,9 +772,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public Course findCourseByCourseNum(String courseNum) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -782,13 +782,13 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from course where courseNum = ?");
-			// Ö¸¶¨courseNumµÄÖµ
+			// æŒ‡å®šcourseNumçš„å€¼
 			pstmt.setString(1, courseNum);
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				// ÕÒµ½ÁË¿Î³Ì£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†è¯¾ç¨‹ï¼Œå°è£…æ•°æ®
 				course = new Course();
 
 				course.setCourseName(rs.getString("courseName"));
@@ -817,9 +817,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public Student findStudentByStudentNum(String studentNum) {
 		
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -827,13 +827,13 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from student where studentNum = ?");
-			// Ö¸¶¨studentNumµÄÖµ
+			// æŒ‡å®šstudentNumçš„å€¼
 			pstmt.setString(1, studentNum);
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				// ÕÒµ½ÁË¿Î³Ì£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†è¯¾ç¨‹ï¼Œå°è£…æ•°æ®
 				student = new Student();
 				
 				student.setStudentNum(rs.getString("studentNum"));
@@ -860,9 +860,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public Teacher findTeacherByTeacherNum(String teacherNum) {
 		
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -870,13 +870,13 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from teacher where teacherNum = ?");
-			// Ö¸¶¨teacherNumµÄÖµ
+			// æŒ‡å®šteacherNumçš„å€¼
 			pstmt.setString(1, teacherNum);
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				// ÕÒµ½ÁË¿Î³Ì£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†è¯¾ç¨‹ï¼Œå°è£…æ•°æ®
 				teacher = new Teacher();
 				
 				teacher.setTeacherNum(rs.getString("teacherNum"));
@@ -902,20 +902,20 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean changePassword(String managerNum, String newPassword) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn
 					.prepareStatement("update manager set password = ? where managerNum = ?");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, newPassword);
 			pstmt.setString(2, managerNum);
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			n = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -929,9 +929,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public boolean showStatus() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -939,7 +939,7 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select status from authority_management where id = 1");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				status = rs.getBoolean("status");
@@ -957,15 +957,15 @@ public class ManagerDaoImpl implements ManagerDao {
 	public Boolean permitCourseSelection(String schoolYear, String semester,
 			String status) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		boolean _status = false;
 		try {
-			// ÏÈ¶Ôstatus½øĞĞ´¦Àí
+			// å…ˆå¯¹statusè¿›è¡Œå¤„ç†
 			if ("1".equals(status)) {
 				_status = true;
 			} else {
@@ -974,12 +974,12 @@ public class ManagerDaoImpl implements ManagerDao {
 
 			pstmt = conn
 					.prepareStatement("update authority_management set schoolYear = ?, semester = ?, status = ? where id = 1");
-			// Ö¸¶¨?µÄÖµ
+			// æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, schoolYear);
 			pstmt.setString(2, semester);
 			pstmt.setBoolean(3, _status);
 
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			n = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -993,9 +993,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public String showSchoolYear() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1003,7 +1003,7 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select schoolYear from authority_management where id = 1");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				schoolYear = rs.getString("schoolYear");
@@ -1020,9 +1020,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public String showSemester() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1030,7 +1030,7 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select semester from authority_management where id = 1");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				semester = rs.getString("semester");
@@ -1047,9 +1047,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public List<Dept> showDept() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1057,10 +1057,10 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select deptName, deptNum from dept order by deptNum");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				//ÕÒµ½ÁËÊı¾İ£¬·â×°½ødeptÀï
+				//æ‰¾åˆ°äº†æ•°æ®ï¼Œå°è£…è¿›depté‡Œ
 				Dept dept = new Dept();
 				dept.setDeptName(rs.getString("deptName"));
 				dept.setDeptNum(rs.getString("deptNum"));
@@ -1079,9 +1079,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public List<Major> showMajor() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1089,7 +1089,7 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select majorName from major order by majorNum");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				
@@ -1106,9 +1106,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public Manager showInfo(String managerNum) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1116,13 +1116,13 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from manager where managerNum = ?");
-			// Ö¸¶¨studentNumµÄÖµ
+			// æŒ‡å®šstudentNumçš„å€¼
 			pstmt.setString(1, managerNum);
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				// ÕÒµ½ÁË¹ÜÀíÔ±£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†ç®¡ç†å‘˜ï¼Œå°è£…æ•°æ®
 				manager = new Manager();
 
 				manager.setManagerNum(rs.getString("managerNum"));
@@ -1145,9 +1145,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public List<Course> listPageCourses(int currentPageIndex, int count, String schoolYear, String semester) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1157,21 +1157,21 @@ public class ManagerDaoImpl implements ManagerDao {
 			
 			pstmt = conn
 					.prepareStatement("select * from course where schoolYear = ? and semester = ? and status = 1 order by courseNum limit ?, ?");
-			//Ö¸¶¨?µÄÖµ
+			//æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, schoolYear);
 			pstmt.setString(2, semester);
 			pstmt.setInt(3, (currentPageIndex - 1)*count);
 			pstmt.setInt(4, count);
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ÕÒµ½ÁË¿Î³ÌºÍ½ÌÊ¦£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†è¯¾ç¨‹å’Œæ•™å¸ˆï¼Œå°è£…æ•°æ®
 				course = new Course();
 
 				try {
-					// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¿Î³Ì¶ÔÏóÖĞ
+					// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥è¯¾ç¨‹å¯¹è±¡ä¸­
 					String courseNum = URLEncoder.encode(
 							rs.getString("courseNum"), "UTF-8");
 					course.setCourseNum(courseNum);
@@ -1208,22 +1208,22 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public int showTotalDataCount(String schoolYear, String semester) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select count(*) from course where schoolYear = ? and semester = ?");
-			//Ö¸¶¨?µÄÖµ
+			//æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, schoolYear);
 			pstmt.setString(2, semester);
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
-			if(rs.next()){	//Ö´ĞĞµÚÒ»Ìõ¼ÇÂ¼
+			if(rs.next()){	//æ‰§è¡Œç¬¬ä¸€æ¡è®°å½•
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -1238,19 +1238,19 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public int showExaminedCoursesCount() {
 		
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select count(*) from course_examination");
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()){	//Ö´ĞĞµÚÒ»Ìõ¼ÇÂ¼
+			if(rs.next()){	//æ‰§è¡Œç¬¬ä¸€æ¡è®°å½•
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -1265,19 +1265,19 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public String showNewTeacherNum() {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String newTeacherNum = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select max(teacherNum) from teacher");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
-			if(rs.next()){	//Ö´ĞĞµÚÒ»Ìõ¼ÇÂ¼
+			if(rs.next()){	//æ‰§è¡Œç¬¬ä¸€æ¡è®°å½•
 				newTeacherNum = rs.getInt(1) + 1 + "";
 			}
 		} catch (SQLException e) {
@@ -1292,19 +1292,19 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public String showNewStudentNum() {
 		
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String newStudentNum = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select max(studentNum) from student");
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()){	//Ö´ĞĞµÚÒ»Ìõ¼ÇÂ¼
+			if(rs.next()){	//æ‰§è¡Œç¬¬ä¸€æ¡è®°å½•
 				newStudentNum = rs.getLong(1) + 1 + "";
 			}
 		} catch (SQLException e) {
@@ -1319,9 +1319,9 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public List<Course> listPageExaminedCourses(int currentPageIndex, int count) {
 
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		int n = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1330,18 +1330,18 @@ public class ManagerDaoImpl implements ManagerDao {
 		try {
 			pstmt = conn
 					.prepareStatement("select * from course_examination order by courseNum limit ?,?");
-			//Ö¸¶¨?µÄÖµ
+			//æŒ‡å®š?çš„å€¼
 			pstmt.setInt(1, (currentPageIndex - 1)*count);
 			pstmt.setInt(2, count);
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// ÕÒµ½ÁË¿Î³ÌºÍ½ÌÊ¦£¬·â×°Êı¾İ
+				// æ‰¾åˆ°äº†è¯¾ç¨‹å’Œæ•™å¸ˆï¼Œå°è£…æ•°æ®
 				course = new Course();
 				try {
-					// ¿Î³ÌºÅÂë¿ÉÄÜÓĞÌØÊâ·ûºÅ£¬ÏÈ½øĞĞ±àÂëÔÙ´æÈë¸Ã¿Î³Ì¶ÔÏóÖĞ
+					// è¯¾ç¨‹å·ç å¯èƒ½æœ‰ç‰¹æ®Šç¬¦å·ï¼Œå…ˆè¿›è¡Œç¼–ç å†å­˜å…¥è¯¥è¯¾ç¨‹å¯¹è±¡ä¸­
 					String courseNum = URLEncoder.encode(
 							rs.getString("courseNum"), "UTF-8");
 					course.setCourseNum(courseNum);
@@ -1373,21 +1373,21 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public int showStudentsCount(String majorName) {
 		
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select count(*) from student where majorName = ?");
-			//Ö¸¶¨?µÄÖµ
+			//æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, majorName);
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()){	//Ö´ĞĞµÚÒ»Ìõ¼ÇÂ¼
+			if(rs.next()){	//æ‰§è¡Œç¬¬ä¸€æ¡è®°å½•
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -1402,21 +1402,21 @@ public class ManagerDaoImpl implements ManagerDao {
 	@Override
 	public int showTeachersCount(String deptName) {
 		
-		// ÄÃµ½Á¬½Ó¶ÔÏó
+		// æ‹¿åˆ°è¿æ¥å¯¹è±¡
 		Connection conn = JdbcUtils.getConnection();
-		// ´´½¨Ô¤´¦ÀíÃüÁî¶ÔÏó
+		// åˆ›å»ºé¢„å¤„ç†å‘½ä»¤å¯¹è±¡
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn
 					.prepareStatement("select count(*) from teacher where deptName = ?");
-			//Ö¸¶¨?µÄÖµ
+			//æŒ‡å®š?çš„å€¼
 			pstmt.setString(1, deptName);
 			
-			// Ö´ĞĞsqlÓï¾ä
+			// æ‰§è¡Œsqlè¯­å¥
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()){	//Ö´ĞĞµÚÒ»Ìõ¼ÇÂ¼
+			if(rs.next()){	//æ‰§è¡Œç¬¬ä¸€æ¡è®°å½•
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-//×¨ÃÅÓÃÓÚÊı¾İ¿âµÄ¹¤¾ßÀà
+//ä¸“é—¨ç”¨äºæ•°æ®åº“çš„å·¥å…·ç±»
 public class JdbcUtils {
 
 	private static String driverClass = "" ;
@@ -30,7 +30,7 @@ public class JdbcUtils {
 		}
 	}
 	
-	//»ñÈ¡Êı¾İ¿âÁ¬½Ó
+	//è·å–æ•°æ®åº“è¿æ¥
 	public static Connection getConnection(){
 		try {
 			return DriverManager.getConnection(url, user, password) ;
@@ -40,7 +40,7 @@ public class JdbcUtils {
 		return null ;
 	}
 	
-	//¹Ø±ÕÁ÷
+	//å…³é—­æµ
 	public static void release(ResultSet rs ,Statement stmt,Connection conn){
 		if(rs != null){
 			try {

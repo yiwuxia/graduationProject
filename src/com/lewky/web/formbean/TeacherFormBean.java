@@ -20,9 +20,9 @@ public class TeacherFormBean implements Serializable {
 	
 	private String teacherTitle;
 	
-	private String email; // 邮箱地址
+	private String email; // 閭鍦板潃
 	
-	private String cellphone; // 联系电话
+	private String cellphone; // 鑱旂郴鐢佃瘽
 
 	public String getTeacherNum() {
 		return teacherNum;

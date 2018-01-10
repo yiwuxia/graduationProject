@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-//×¨ÃÅÎªÒ³Ãæ·şÎñ: ·â×°ÁËÒ³ÃæµÄĞÅÏ¢
+//ä¸“é—¨ä¸ºé¡µé¢æœåŠ¡: å°è£…äº†é¡µé¢çš„ä¿¡æ¯
 public class WebUtils {
 
 	public static <T> T fillFormBean(Class<T> clazz,HttpServletRequest request){

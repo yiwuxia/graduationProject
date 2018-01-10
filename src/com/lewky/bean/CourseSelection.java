@@ -16,13 +16,13 @@ public class CourseSelection implements	Serializable{
 
 	private String teacherName;
 	
-	private String regularGrade;	//平时成绩
+	private String regularGrade;	//骞虫椂鎴愮哗
 
-	private String midtermGrade;	//期中成绩
+	private String midtermGrade;	//鏈熶腑鎴愮哗
 	
-	private String finalExamGrade;	//期末成绩
+	private String finalExamGrade;	//鏈熸湯鎴愮哗
 
-	private String grade;	//综合成绩
+	private String grade;	//缁煎悎鎴愮哗
 
 	public String getStudentNum() {
 		return studentNum;

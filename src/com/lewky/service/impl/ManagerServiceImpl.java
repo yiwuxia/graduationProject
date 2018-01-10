@@ -27,13 +27,13 @@ public class ManagerServiceImpl implements ManagerService {
 	public Page listPageStudents(int currentPageIndex, int count,
 			String majorName) {
 		
-		//²éÑ¯±íÖĞµÄ¼ÇÂ¼Êı
+		//æŸ¥è¯¢è¡¨ä¸­çš„è®°å½•æ•°
 		int totalDataCount = dao.showStudentsCount(majorName);
-		//´´½¨Page¶ÔÏó
+		//åˆ›å»ºPageå¯¹è±¡
 		Page page = new Page(totalDataCount, count);
-		//ÉèÖÃµ±Ç°Ò³ÃæË÷Òı
+		//è®¾ç½®å½“å‰é¡µé¢ç´¢å¼•
 		page.setCurrentPageIndex(currentPageIndex);
-		//Éè¶¨Ò³ÃæÒªÏÔÊ¾µÄÊı¾İµÄ¼¯ºÏ
+		//è®¾å®šé¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®çš„é›†åˆ
 		page.setStudentsList(dao.listPageStudents(currentPageIndex, count, majorName));
 		
 		return page;
@@ -43,13 +43,13 @@ public class ManagerServiceImpl implements ManagerService {
 	public Page listPageTeachers(int currentPageIndex, int count,
 			String deptName) {
 		
-		//²éÑ¯±íÖĞµÄ¼ÇÂ¼Êı
+		//æŸ¥è¯¢è¡¨ä¸­çš„è®°å½•æ•°
 		int totalDataCount = dao.showTeachersCount(deptName);
-		//´´½¨Page¶ÔÏó
+		//åˆ›å»ºPageå¯¹è±¡
 		Page page = new Page(totalDataCount, count);
-		//ÉèÖÃµ±Ç°Ò³ÃæË÷Òı
+		//è®¾ç½®å½“å‰é¡µé¢ç´¢å¼•
 		page.setCurrentPageIndex(currentPageIndex);
-		//Éè¶¨Ò³ÃæÒªÏÔÊ¾µÄÊı¾İµÄ¼¯ºÏ
+		//è®¾å®šé¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®çš„é›†åˆ
 		page.setTeachersList(dao.listPageTeachers(currentPageIndex, count, deptName));
 		
 		return page;
@@ -191,13 +191,13 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public Page listPageCourses(int currentPageIndex, int count, String schoolYear, String semester) {
 		
-		//²éÑ¯±íÖĞµÄ¼ÇÂ¼Êı
+		//æŸ¥è¯¢è¡¨ä¸­çš„è®°å½•æ•°
 		int totalDataCount = showTotalDataCount(schoolYear, semester);
-		//´´½¨Page¶ÔÏó
+		//åˆ›å»ºPageå¯¹è±¡
 		Page page = new Page(totalDataCount, count);
-		//ÉèÖÃµ±Ç°Ò³ÃæË÷Òı
+		//è®¾ç½®å½“å‰é¡µé¢ç´¢å¼•
 		page.setCurrentPageIndex(currentPageIndex);
-		//Éè¶¨Ò³ÃæÒªÏÔÊ¾µÄÊı¾İµÄ¼¯ºÏ
+		//è®¾å®šé¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®çš„é›†åˆ
 		page.setCoursesList(dao.listPageCourses(currentPageIndex, count, schoolYear, semester));
 		
 		return page;
@@ -224,13 +224,13 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public Page listPageExaminedCourses(int currentPageIndex, int count) {
 		
-		//²éÑ¯±íÖĞµÄ¼ÇÂ¼Êı
+		//æŸ¥è¯¢è¡¨ä¸­çš„è®°å½•æ•°
 		int totalDataCount = dao.showExaminedCoursesCount();
-		//´´½¨Page¶ÔÏó
+		//åˆ›å»ºPageå¯¹è±¡
 		Page page = new Page(totalDataCount, count);
-		//ÉèÖÃµ±Ç°Ò³ÃæË÷Òı
+		//è®¾ç½®å½“å‰é¡µé¢ç´¢å¼•
 		page.setCurrentPageIndex(currentPageIndex);
-		//Éè¶¨Ò³ÃæÒªÏÔÊ¾µÄÊı¾İµÄ¼¯ºÏ
+		//è®¾å®šé¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®çš„é›†åˆ
 		page.setCoursesList(dao.listPageExaminedCourses(currentPageIndex, count));
 		
 		return page;

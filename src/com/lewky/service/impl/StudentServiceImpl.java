@@ -60,13 +60,13 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Page showGrade(String studentNum, int currentPageIndex, int count) {
 		
-		//²éÑ¯±íÖĞµÄ¼ÇÂ¼Êı
+		//æŸ¥è¯¢è¡¨ä¸­çš„è®°å½•æ•°
 		int totalDataCount = dao.showCourseCount(studentNum);
-		//´´½¨Page¶ÔÏó
+		//åˆ›å»ºPageå¯¹è±¡
 		Page page = new Page(totalDataCount, count);
-		//ÉèÖÃµ±Ç°Ò³ÃæË÷Òı
+		//è®¾ç½®å½“å‰é¡µé¢ç´¢å¼•
 		page.setCurrentPageIndex(currentPageIndex);
-		//Éè¶¨Ò³ÃæÒªÏÔÊ¾µÄÊı¾İµÄ¼¯ºÏ
+		//è®¾å®šé¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®çš„é›†åˆ
 		page.setCourseSelectionsList(dao.showGrade(studentNum, currentPageIndex, count));
 		
 		return page;
@@ -76,13 +76,13 @@ public class StudentServiceImpl implements StudentService {
 	public Page showGrade(String studentNum, String schoolYear,
 			String semester, int currentPageIndex, int count) {
 		
-		//²éÑ¯±íÖĞµÄ¼ÇÂ¼Êı
+		//æŸ¥è¯¢è¡¨ä¸­çš„è®°å½•æ•°
 		int totalDataCount = dao.showCourseCount(studentNum, schoolYear, semester);
-		//´´½¨Page¶ÔÏó
+		//åˆ›å»ºPageå¯¹è±¡
 		Page page = new Page(totalDataCount, count);
-		//ÉèÖÃµ±Ç°Ò³ÃæË÷Òı
+		//è®¾ç½®å½“å‰é¡µé¢ç´¢å¼•
 		page.setCurrentPageIndex(currentPageIndex);
-		//Éè¶¨Ò³ÃæÒªÏÔÊ¾µÄÊı¾İµÄ¼¯ºÏ
+		//è®¾å®šé¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®çš„é›†åˆ
 		page.setCourseSelectionsList(dao.showGrade(studentNum, schoolYear, semester, currentPageIndex, count));
 		
 		return page;
@@ -109,13 +109,13 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Page listPageCourses(int currentPageIndex, int count, String schoolYear, String semester) {
 		
-		//²éÑ¯±íÖĞµÄ¼ÇÂ¼Êı
+		//æŸ¥è¯¢è¡¨ä¸­çš„è®°å½•æ•°
 		int totalDataCount = showTotalDataCount(schoolYear, semester);
-		//´´½¨Page¶ÔÏó
+		//åˆ›å»ºPageå¯¹è±¡
 		Page page = new Page(totalDataCount, count);
-		//ÉèÖÃµ±Ç°Ò³ÃæË÷Òı
+		//è®¾ç½®å½“å‰é¡µé¢ç´¢å¼•
 		page.setCurrentPageIndex(currentPageIndex);
-		//Éè¶¨Ò³ÃæÒªÏÔÊ¾µÄÊı¾İµÄ¼¯ºÏ
+		//è®¾å®šé¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®çš„é›†åˆ
 		page.setCoursesList(dao.listPageCourses(currentPageIndex, count, schoolYear, semester));
 		
 		return page;
@@ -131,16 +131,16 @@ public class StudentServiceImpl implements StudentService {
 	public Page listPageSelectedCourses(String studentNum,
 			int currentPageIndex, int count) {
 		
-		//²éÑ¯µ±Ç°Ñ§ÄêºÍÑ§ÆÚ
+		//æŸ¥è¯¢å½“å‰å­¦å¹´å’Œå­¦æœŸ
 		String schoolYear = dao.showSchoolYear();
 		String semester = dao.showSemester();
-		//²éÑ¯±íÖĞµÄ¼ÇÂ¼Êı
+		//æŸ¥è¯¢è¡¨ä¸­çš„è®°å½•æ•°
 		int totalDataCount = showTotalDataCount(schoolYear, semester);
-		//´´½¨Page¶ÔÏó
+		//åˆ›å»ºPageå¯¹è±¡
 		Page page = new Page(totalDataCount, count);
-		//ÉèÖÃµ±Ç°Ò³ÃæË÷Òı
+		//è®¾ç½®å½“å‰é¡µé¢ç´¢å¼•
 		page.setCurrentPageIndex(currentPageIndex);
-		//Éè¶¨Ò³ÃæÒªÏÔÊ¾µÄÊı¾İµÄ¼¯ºÏ
+		//è®¾å®šé¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®çš„é›†åˆ
 		page.setCoursesList(dao.listPageSelectedCourses(studentNum, currentPageIndex, count));
 		
 		return page;
@@ -152,17 +152,17 @@ public class StudentServiceImpl implements StudentService {
 
 		List<Course> courses = showTimetable(studentNum, schoolYear, semester);
 		List<List<String>> list = new ArrayList<List<String>>();
-		//Ñ­»·È¡³ö¿Î³ÌµÄweek
+		//å¾ªç¯å–å‡ºè¯¾ç¨‹çš„week
 		for (int i = 0; i < courses.size(); i++) {
 			List<String> subList = new ArrayList<String>();
 			String week = courses.get(i).getWeek();
 			if (!"".equals(week)) {
-				//Èç¹ûweek²»Îª¿Õ×Ö·û´®
-				//×Ö·û´®ºó±ß¶àÁË¸ö"}"£¬ÏÈ¼õÈ¥
+				//å¦‚æœweekä¸ä¸ºç©ºå­—ç¬¦ä¸²
+				//å­—ç¬¦ä¸²åè¾¹å¤šäº†ä¸ª"}"ï¼Œå…ˆå‡å»
 				week = week.substring(0, week.length()-1);
-				// ²ğ·Ö×Ö·û´®
+				// æ‹†åˆ†å­—ç¬¦ä¸²
 				String[] weeks = week.split("}");
-				//½«Ã¿Ò»¸öweek´¦Àíºó·Ö±ğ·ÅÈëµ½subListÖĞ
+				//å°†æ¯ä¸€ä¸ªweekå¤„ç†ååˆ†åˆ«æ”¾å…¥åˆ°subListä¸­
 				for (int j = 0; j < weeks.length; j++) {
 					String subWeek = weeks[j];
 					subWeek = subWeek.substring(1);
@@ -180,15 +180,15 @@ public class StudentServiceImpl implements StudentService {
 
 		List<Course> courses = showTimetable(studentNum, schoolYear, semester);
 		List<List<String>> list = new ArrayList<List<String>>();
-		//Ñ­»·È¡³ö¿Î³ÌµÄweekday
+		//å¾ªç¯å–å‡ºè¯¾ç¨‹çš„weekday
 		for (int i = 0; i < courses.size(); i++) {
 			List<String> subList = new ArrayList<String>();
 			String weekday = courses.get(i).getWeekday();
 			if (!"".equals(weekday)) {
-				//Èç¹ûweekday²»Îª¿Õ×Ö·û´®
-				// ²ğ·Ö×Ö·û´®
+				//å¦‚æœweekdayä¸ä¸ºç©ºå­—ç¬¦ä¸²
+				// æ‹†åˆ†å­—ç¬¦ä¸²
 				String[] weekdays = weekday.split(",");
-				//½«Ã¿Ò»¸öweekday·Ö±ğ·ÅÈëµ½listÖĞ
+				//å°†æ¯ä¸€ä¸ªweekdayåˆ†åˆ«æ”¾å…¥åˆ°listä¸­
 				for (int j = 0; j < weekdays.length; j++) {
 					subList.add(weekdays[j]);
 				}
@@ -204,17 +204,17 @@ public class StudentServiceImpl implements StudentService {
 
 		List<Course> courses = showTimetable(studentNum, schoolYear, semester);
 		List<List<String>> list = new ArrayList<List<String>>();
-		//Ñ­»·È¡³ö¿Î³ÌµÄtime
+		//å¾ªç¯å–å‡ºè¯¾ç¨‹çš„time
 		for (int i = 0; i < courses.size(); i++) {
 			List<String> subList = new ArrayList<String>();
 			String time = courses.get(i).getTime();
 			if (!"".equals(time)) {
-				//Èç¹ûtime²»Îª¿Õ×Ö·û´®
-				//×Ö·û´®ºó±ß¶àÁË¸ö"}"£¬ÏÈ¼õÈ¥
+				//å¦‚æœtimeä¸ä¸ºç©ºå­—ç¬¦ä¸²
+				//å­—ç¬¦ä¸²åè¾¹å¤šäº†ä¸ª"}"ï¼Œå…ˆå‡å»
 				time = time.substring(0, time.length()-1);
-				// ²ğ·Ö×Ö·û´®
+				// æ‹†åˆ†å­—ç¬¦ä¸²
 				String[] times = time.split("}");
-				//½«Ã¿Ò»¸ötime´¦Àíºó·Ö±ğ·ÅÈëµ½subListÖĞ
+				//å°†æ¯ä¸€ä¸ªtimeå¤„ç†ååˆ†åˆ«æ”¾å…¥åˆ°subListä¸­
 				for (int j = 0; j < times.length; j++) {
 					String subTime = times[j];
 					subTime = subTime.substring(1);
@@ -232,17 +232,17 @@ public class StudentServiceImpl implements StudentService {
 
 		List<Course> courses = showTimetable(studentNum, schoolYear, semester);
 		List<List<String>> list = new ArrayList<List<String>>();
-		//Ñ­»·È¡³ö¿Î³ÌµÄplace
+		//å¾ªç¯å–å‡ºè¯¾ç¨‹çš„place
 		for (int i = 0; i < courses.size(); i++) {
 			List<String> subList = new ArrayList<String>();
 			String place = courses.get(i).getPlace();
 			if (!"".equals(place)) {
-				//Èç¹ûplace²»Îª¿Õ×Ö·û´®
-				//×Ö·û´®ºó±ß¶àÁË¸ö"}"£¬ÏÈ¼õÈ¥
+				//å¦‚æœplaceä¸ä¸ºç©ºå­—ç¬¦ä¸²
+				//å­—ç¬¦ä¸²åè¾¹å¤šäº†ä¸ª"}"ï¼Œå…ˆå‡å»
 				place = place.substring(0, place.length()-1);
-				// ²ğ·Ö×Ö·û´®
+				// æ‹†åˆ†å­—ç¬¦ä¸²
 				String[] places = place.split("}");
-				//½«Ã¿Ò»¸öplace´¦Àíºó·Ö±ğ·ÅÈëµ½subListÖĞ
+				//å°†æ¯ä¸€ä¸ªplaceå¤„ç†ååˆ†åˆ«æ”¾å…¥åˆ°subListä¸­
 				for (int j = 0; j < places.length; j++) {
 					String subPlace = places[j];
 					subPlace = subPlace.substring(1);

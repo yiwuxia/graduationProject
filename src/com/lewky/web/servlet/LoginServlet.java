@@ -21,10 +21,10 @@ import com.lewky.service.impl.TeacherServiceImpl;
 
 /**
  * @author 123 E-mail: lewkyliu@gmail.com
- * @version ´´½¨Ê±¼ä£º2017-4-1 ÏÂÎç7:11:26
+ * @version åˆ›å»ºæ—¶é—´ï¼š2017-4-1 ä¸‹åˆ7:11:26
  */
 @WebServlet("/LoginServlet")
-// Íê³ÉµÇÂ½µÄ¹¦ÄÜ
+// å®Œæˆç™»é™†çš„åŠŸèƒ½
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -39,93 +39,93 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		// ÄÃµ½sessionÀïµÄcode
+		// æ‹¿åˆ°sessioné‡Œçš„code
 		String code = (String) request.getSession().getAttribute("code");
-		// ÄÃµ½Ò³Ãæ´«µİ¹ıÀ´µÄĞÅÏ¢
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’è¿‡æ¥çš„ä¿¡æ¯
 		String formCode = request.getParameter("code");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		// ½«ĞÅÏ¢´æµ½session¶ÔÏóÖĞ
+		// å°†ä¿¡æ¯å­˜åˆ°sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("username", username);
 //		System.out.println(username);
 		
-		// ½øĞĞÊı¾İÑéÖ¤
-		if ("ÇëÊäÈëÑ§ºÅ»ò¹¤ºÅ".equals(username)) {
-			// ÓÃ»§ÃûÎª¿Õ
-			request.getSession().setAttribute("error", "ÓÃ»§Ãû²»ÄÜÎª¿Õ");
+		// è¿›è¡Œæ•°æ®éªŒè¯
+		if ("è¯·è¾“å…¥å­¦å·æˆ–å·¥å·".equals(username)) {
+			// ç”¨æˆ·åä¸ºç©º
+			request.getSession().setAttribute("error", "ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
 			String error = (String) request.getSession().getAttribute("error");
 			System.out.println(error);
 			response.sendRedirect(request.getContextPath() + "/login.jsp");
-		} else if ("ÇëÊäÈëÃÜÂë".equals(password)) {
-			// ÃÜÂëÎª¿Õ
-			request.getSession().setAttribute("error", "ÃÜÂë²»ÄÜÎª¿Õ");
+		} else if ("è¯·è¾“å…¥å¯†ç ".equals(password)) {
+			// å¯†ç ä¸ºç©º
+			request.getSession().setAttribute("error", "å¯†ç ä¸èƒ½ä¸ºç©º");
 			response.sendRedirect(request.getContextPath() + "/login.jsp");
-		} else if ("ÇëÊäÈëÑéÖ¤Âë".equals(formCode)) {
-			// ÑéÖ¤ÂëÎª¿Õ
-			request.getSession().setAttribute("error", "ÑéÖ¤Âë²»ÄÜÎª¿Õ");
+		} else if ("è¯·è¾“å…¥éªŒè¯ç ".equals(formCode)) {
+			// éªŒè¯ç ä¸ºç©º
+			request.getSession().setAttribute("error", "éªŒè¯ç ä¸èƒ½ä¸ºç©º");
 			response.sendRedirect(request.getContextPath() + "/login.jsp");
 		} else {
-			// ÅĞ¶ÏÑéÖ¤ÂëÊÇ·ñÕıÈ·
+			// åˆ¤æ–­éªŒè¯ç æ˜¯å¦æ­£ç¡®
 			if (formCode.equalsIgnoreCase(code)) {
-				// ÑéÖ¤ÂëÕıÈ·
-				// ÅĞ¶ÏµÇÂ½µÄÓÃ»§ÀàĞÍ
+				// éªŒè¯ç æ­£ç¡®
+				// åˆ¤æ–­ç™»é™†çš„ç”¨æˆ·ç±»å‹
 				String usertype = request.getParameter("usertype");
 				if ("student".equals(usertype)) {
-					// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+					// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 					Student student = ss.login(username, password);
 					if (student != null) {
-						// ºÏ·¨ÓÃ»§£¬µÇÂ½³É¹¦
+						// åˆæ³•ç”¨æˆ·ï¼Œç™»é™†æˆåŠŸ
 						request.getSession().setAttribute("loginUser", student);
 						request.getSession().setAttribute("userType", "student");
 						response.sendRedirect(request.getContextPath()
 								+ "/main.jsp");
 					} else {
-						// ·Ç·¨ÓÃ»§
-						request.getSession().setAttribute("error", "ÓÃ»§Ãû»òÃÜÂë´íÎó");
+						// éæ³•ç”¨æˆ·
+						request.getSession().setAttribute("error", "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯");
 						response.sendRedirect(request.getContextPath()
 								+ "/login.jsp");
 					}
 				} else if ("teacher".equals(usertype)) {
-					// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+					// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 					Teacher teacher = ts.login(username, password);
 					if (teacher != null) {
-						// ºÏ·¨ÓÃ»§£¬µÇÂ½³É¹¦
+						// åˆæ³•ç”¨æˆ·ï¼Œç™»é™†æˆåŠŸ
 						request.getSession().setAttribute("loginUser", teacher);
 						request.getSession().setAttribute("userType", "teacher");
 						response.sendRedirect(request.getContextPath()
 								+ "/main.jsp");
 					} else {
-						// ·Ç·¨ÓÃ»§
-						request.getSession().setAttribute("error", "ÓÃ»§Ãû»òÃÜÂë´íÎó");
+						// éæ³•ç”¨æˆ·
+						request.getSession().setAttribute("error", "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯");
 						response.sendRedirect(request.getContextPath()
 								+ "/login.jsp");
 					}
 				} else if ("manager".equals(usertype)) {
-					// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+					// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 					Manager manager = ms.login(username, password);
 					if (manager != null) {
-						// ºÏ·¨ÓÃ»§£¬µÇÂ½³É¹¦
+						// åˆæ³•ç”¨æˆ·ï¼Œç™»é™†æˆåŠŸ
 						request.getSession().setAttribute("loginUser", manager);
 						request.getSession().setAttribute("userType", "manager");
 						response.sendRedirect(request.getContextPath()
 								+ "/main.jsp");
 					} else {
-						// ·Ç·¨ÓÃ»§
-						request.getSession().setAttribute("error", "ÓÃ»§Ãû»òÃÜÂë´íÎó");
+						// éæ³•ç”¨æˆ·
+						request.getSession().setAttribute("error", "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯");
 						response.sendRedirect(request.getContextPath()
 								+ "/login.jsp");
 					}
 				} else {
-					// ½«´íÎóĞÅÏ¢´æÈësession¶ÔÏóÖĞ£¬²¢Ìø×ªÏòµÇÂ½Ò³Ãæ
-					request.getSession().setAttribute("error", "ÓÃ»§ÀàĞÍ´íÎó");
+					// å°†é”™è¯¯ä¿¡æ¯å­˜å…¥sessionå¯¹è±¡ä¸­ï¼Œå¹¶è·³è½¬å‘ç™»é™†é¡µé¢
+					request.getSession().setAttribute("error", "ç”¨æˆ·ç±»å‹é”™è¯¯");
 					response.sendRedirect(request.getContextPath()
 							+ "/login.jsp");
 				}
 
 			} else {
-				// ÑéÖ¤Âë´íÎó
-				// ½«´íÎóĞÅÏ¢´æÈësession¶ÔÏóÖĞ£¬²¢Ìø×ªÏòµÇÂ½Ò³Ãæ
-				request.getSession().setAttribute("error", "ÑéÖ¤ÂëÊäÈë´íÎó");
+				// éªŒè¯ç é”™è¯¯
+				// å°†é”™è¯¯ä¿¡æ¯å­˜å…¥sessionå¯¹è±¡ä¸­ï¼Œå¹¶è·³è½¬å‘ç™»é™†é¡µé¢
+				request.getSession().setAttribute("error", "éªŒè¯ç è¾“å…¥é”™è¯¯");
 				response.sendRedirect(request.getContextPath() + "/login.jsp");
 			}
 

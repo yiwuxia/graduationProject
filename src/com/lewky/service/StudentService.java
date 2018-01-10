@@ -10,224 +10,224 @@ import com.lewky.web.formbean.Page;
 public interface StudentService {
 
 	/**
-	 * Í¨¹ıÑ§ºÅºÍÃÜÂë½øĞĞµÇÂ½
+	 * é€šè¿‡å­¦å·å’Œå¯†ç è¿›è¡Œç™»é™†
 	 * 
 	 * @param studentNum
-	 *            Ñ§ºÅ
+	 *            å­¦å·
 	 * @param password
-	 *            ÃÜÂë
-	 * @return µÇÂ½³É¹¦·µ»Ø¸ÃÑ§Éú£¬·ñÔò·µ»Ønull
+	 *            å¯†ç 
+	 * @return ç™»é™†æˆåŠŸè¿”å›è¯¥å­¦ç”Ÿï¼Œå¦åˆ™è¿”å›null
 	 */
 	public Student login(String studentNum, String password);
 
 	/**
-	 * ÁĞ³öËùÓĞ¿Î³ÌĞÅÏ¢
+	 * åˆ—å‡ºæ‰€æœ‰è¯¾ç¨‹ä¿¡æ¯
 	 * 
-	 * @return ²éÕÒµ½Ôò·µ»ØËùÓĞ¿Î³ÌµÄ¼¯ºÏ£¬·ñÔò·µ»Ønull
+	 * @return æŸ¥æ‰¾åˆ°åˆ™è¿”å›æ‰€æœ‰è¯¾ç¨‹çš„é›†åˆï¼Œå¦åˆ™è¿”å›null
 	 */
 	public List<Course> listAllCourses();
 
 	/**
-	 * ÁĞ³öÒÑÑ¡µÄ¿Î³ÌĞÅÏ¢
+	 * åˆ—å‡ºå·²é€‰çš„è¯¾ç¨‹ä¿¡æ¯
 	 * 
 	 * @param studentNum
-	 *            Ñ§ÉúÑ§ºÅ
-	 * @return ·µ»ØÒÑÑ¡µÄ¿Î³ÌĞÅÏ¢
+	 *            å­¦ç”Ÿå­¦å·
+	 * @return è¿”å›å·²é€‰çš„è¯¾ç¨‹ä¿¡æ¯
 	 */
 	public List<Course> listSelectedCourses(String studentNum);
 
 	/**
-	 * Ñ¡¿Î
+	 * é€‰è¯¾
 	 * 
 	 * @param studentNum
-	 *            Ñ§ÉúÑ§ºÅ
+	 *            å­¦ç”Ÿå­¦å·
 	 * @param courseNums
-	 *            ÒªÑ¡ÔñµÄ¿Î³ÌºÅÂë
-	 * @return Ñ¡¿Î³É¹¦Ôò·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 *            è¦é€‰æ‹©çš„è¯¾ç¨‹å·ç 
+	 * @return é€‰è¯¾æˆåŠŸåˆ™è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean selectCourses(String studentNum, String[] courseNums);
 
 	/**
-	 * ÍË¿Î
+	 * é€€è¯¾
 	 * 
 	 * @param studentNum
-	 *            Ñ§ÉúÑ§ºÅ
+	 *            å­¦ç”Ÿå­¦å·
 	 * @param courseNums
-	 *            ÒªÍËÑ¡µÄ¿Î³ÌºÅÂë
-	 * @return ÍË¿Î³É¹¦Ôò·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 *            è¦é€€é€‰çš„è¯¾ç¨‹å·ç 
+	 * @return é€€è¯¾æˆåŠŸåˆ™è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean quitCourses(String studentNum, String[] courseNums);
 
 	/**
-	 * ÏÔÊ¾¸öÈËĞÅÏ¢
+	 * æ˜¾ç¤ºä¸ªäººä¿¡æ¯
 	 * 
 	 * @param studentNum
-	 *            ÒªÏÔÊ¾µÄÑ§ÉúµÄÑ§ºÅ
+	 *            è¦æ˜¾ç¤ºçš„å­¦ç”Ÿçš„å­¦å·
 	 * @return
 	 */
 	public Student showInfo(String studentNum);
 
 	/**
-	 * ĞŞ¸ÄÃÜÂë
+	 * ä¿®æ”¹å¯†ç 
 	 * 
 	 * @param studentNum
-	 *            ÒªĞŞ¸ÄµÄÑ§ÉúµÄÑ§ºÅ
+	 *            è¦ä¿®æ”¹çš„å­¦ç”Ÿçš„å­¦å·
 	 * @param newPassword
-	 *            ĞÂÃÜÂë
-	 * @return ĞŞ¸Ä³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 *            æ–°å¯†ç 
+	 * @return ä¿®æ”¹æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean changePassword(String studentNum, String newPassword);
 
 	/**
-	 * ²é¿´È«²¿µÄ³É¼¨
+	 * æŸ¥çœ‹å…¨éƒ¨çš„æˆç»©
 	 * 
 	 * @param studentNum
-	 *            Òª²éÑ¯µÄÑ§ÉúÑ§ºÅ
-	 * @return ²éÑ¯µ½Ôò·µ»Ø¿Î³Ì³É¼¨µÄÒ³Ãæ£¬·ñÔò·µ»Ønull
+	 *            è¦æŸ¥è¯¢çš„å­¦ç”Ÿå­¦å·
+	 * @return æŸ¥è¯¢åˆ°åˆ™è¿”å›è¯¾ç¨‹æˆç»©çš„é¡µé¢ï¼Œå¦åˆ™è¿”å›null
 	 */
 	public Page showGrade(String studentNum, int currentPageIndex, int count);
 
 	/**
-	 * ²é¿´Ä³Ñ§ÄêÑ§ÆÚµÄ³É¼¨
+	 * æŸ¥çœ‹æŸå­¦å¹´å­¦æœŸçš„æˆç»©
 	 * 
 	 * @param studentNum
-	 *            Òª²éÑ¯µÄÑ§ÉúÑ§ºÅ
+	 *            è¦æŸ¥è¯¢çš„å­¦ç”Ÿå­¦å·
 	 * @param schoolYear
-	 *            Òª²éÑ¯µÄÑ§Äê
+	 *            è¦æŸ¥è¯¢çš„å­¦å¹´
 	 * @param semester
-	 *            Òª²éÑ¯µÄÑ§ÆÚ
-	 * @return ²éÑ¯µ½Ôò·µ»Ø¿Î³Ì³É¼¨µÄÒ³Ãæ£¬·ñÔò·µ»Ønull
+	 *            è¦æŸ¥è¯¢çš„å­¦æœŸ
+	 * @return æŸ¥è¯¢åˆ°åˆ™è¿”å›è¯¾ç¨‹æˆç»©çš„é¡µé¢ï¼Œå¦åˆ™è¿”å›null
 	 */
 	public Page showGrade(String studentNum, String schoolYear,
 			String semester, int currentPageIndex, int count);
 
 	/**
-	 * ²éÑ¯µ±Ç°µÄÑ¡¿Î×´Ì¬
+	 * æŸ¥è¯¢å½“å‰çš„é€‰è¯¾çŠ¶æ€
 	 * 
 	 * @return
 	 */
 	public boolean showStatus();
 
 	/**
-	 * ²éÑ¯µ±Ç°µÄÑ§ÆÚ
+	 * æŸ¥è¯¢å½“å‰çš„å­¦æœŸ
 	 * 
 	 * @return
 	 */
 	public String showSemester();
 
 	/**
-	 * ²éÑ¯µ±Ç°µÄÑ§Äê
+	 * æŸ¥è¯¢å½“å‰çš„å­¦å¹´
 	 * 
 	 * @return
 	 */
 	public String showSchoolYear();
 
 	/**
-	 * ¸ù¾İµ±Ç°Ò³ÃæË÷Òı²éÑ¯ËùÓĞ¿Î³Ì
+	 * æ ¹æ®å½“å‰é¡µé¢ç´¢å¼•æŸ¥è¯¢æ‰€æœ‰è¯¾ç¨‹
 	 * 
 	 * @param currentPageIndex
-	 *            µ±Ç°Ò³ÃæµÄË÷Òı
+	 *            å½“å‰é¡µé¢çš„ç´¢å¼•
 	 * @param count
-	 *            Ò³ÃæÒªÏÔÊ¾µÄÊı¾İÊıÁ¿
+	 *            é¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®æ•°é‡
 	 * @param schoolYear
-	 *            µ±Ç°Ñ§Äê
+	 *            å½“å‰å­¦å¹´
 	 * @param semester
-	 *            µ±Ç°Ñ§ÆÚ
-	 * @return ·µ»Ø´ËÒ³Ãæ¶ÔÏó
+	 *            å½“å‰å­¦æœŸ
+	 * @return è¿”å›æ­¤é¡µé¢å¯¹è±¡
 	 */
 	public Page listPageCourses(int currentPageIndex, int count,
 			String schoolYear, String semester);
 
 	/**
-	 * »ñÈ¡±íÖĞÊı¾İµÄ×ÜÊı
+	 * è·å–è¡¨ä¸­æ•°æ®çš„æ€»æ•°
 	 * 
 	 * @param schoolYear
-	 *            µ±Ç°Ñ§ÆÚ
+	 *            å½“å‰å­¦æœŸ
 	 * @param semester
-	 *            µ±Ç°Ñ§Äê
+	 *            å½“å‰å­¦å¹´
 	 * @return
 	 */
 	public int showTotalDataCount(String schoolYear, String semester);
 
 	/**
-	 * ¸ù¾İµ±Ç°Ò³ÃæË÷Òı²éÑ¯ÒÑÑ¡¿Î³Ì
+	 * æ ¹æ®å½“å‰é¡µé¢ç´¢å¼•æŸ¥è¯¢å·²é€‰è¯¾ç¨‹
 	 * 
 	 * @param studentNum
-	 *            Ñ§ÉúÑ§ºÅ
+	 *            å­¦ç”Ÿå­¦å·
 	 * @param currentPageIndex
-	 *            µ±Ç°Ò³ÃæµÄË÷Òı
+	 *            å½“å‰é¡µé¢çš„ç´¢å¼•
 	 * @param count
-	 *            Ò³ÃæÒªÏÔÊ¾µÄÊı¾İÊıÁ¿
-	 * @return ·µ»Ø´ËÒ³Ãæ¶ÔÏó
+	 *            é¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®æ•°é‡
+	 * @return è¿”å›æ­¤é¡µé¢å¯¹è±¡
 	 */
 	public Page listPageSelectedCourses(String studentNum,
 			int currentPageIndex, int count);
 
 	/**
-	 * ²éÑ¯¿Î³Ì±íµÄÉÏ¿ÎÖÜ´Î
+	 * æŸ¥è¯¢è¯¾ç¨‹è¡¨çš„ä¸Šè¯¾å‘¨æ¬¡
 	 * 
 	 * @param studentNum
-	 *            Ñ§ÉúÑ§ºÅ
+	 *            å­¦ç”Ÿå­¦å·
 	 * @param schoolYear
-	 *            Ñ§Äê
+	 *            å­¦å¹´
 	 * @param semester
-	 *            Ñ§ÆÚ
+	 *            å­¦æœŸ
 	 * @return
 	 */
 	public List<List<String>> showCourseWeek(String studentNum, String schoolYear,
 			String semester);
 	
 	/**
-	 * ²éÑ¯¿Î³Ì±íµÄÉÏ¿ÎÈÕ´Î
+	 * æŸ¥è¯¢è¯¾ç¨‹è¡¨çš„ä¸Šè¯¾æ—¥æ¬¡
 	 * 
 	 * @param studentNum
-	 *            Ñ§ÉúÑ§ºÅ
+	 *            å­¦ç”Ÿå­¦å·
 	 * @param schoolYear
-	 *            Ñ§Äê
+	 *            å­¦å¹´
 	 * @param semester
-	 *            Ñ§ÆÚ
+	 *            å­¦æœŸ
 	 * @return
 	 */
 	public List<List<String>> showCourseWeekday(String studentNum, String schoolYear,
 			String semester);
 	
 	/**
-	 * ²éÑ¯¿Î³Ì±íµÄÉÏ¿Î½Ú´Î
+	 * æŸ¥è¯¢è¯¾ç¨‹è¡¨çš„ä¸Šè¯¾èŠ‚æ¬¡
 	 * 
 	 * @param studentNum
-	 *            Ñ§ÉúÑ§ºÅ
+	 *            å­¦ç”Ÿå­¦å·
 	 * @param schoolYear
-	 *            Ñ§Äê
+	 *            å­¦å¹´
 	 * @param semester
-	 *            Ñ§ÆÚ
+	 *            å­¦æœŸ
 	 * @return
 	 */
 	public List<List<String>> showCourseTime(String studentNum, String schoolYear,
 			String semester);
 	
 	/**
-	 * ²éÑ¯¿Î³Ì±íµÄÉÏ¿ÎµØµã
+	 * æŸ¥è¯¢è¯¾ç¨‹è¡¨çš„ä¸Šè¯¾åœ°ç‚¹
 	 * 
 	 * @param studentNum
-	 *            Ñ§ÉúÑ§ºÅ
+	 *            å­¦ç”Ÿå­¦å·
 	 * @param schoolYear
-	 *            Ñ§Äê
+	 *            å­¦å¹´
 	 * @param semester
-	 *            Ñ§ÆÚ
+	 *            å­¦æœŸ
 	 * @return
 	 */
 	public List<List<String>> showCoursePlace(String studentNum, String schoolYear,
 			String semester);
 
 	/**
-	 * ²éÑ¯¸öÈË¿Î±í
+	 * æŸ¥è¯¢ä¸ªäººè¯¾è¡¨
 	 * 
 	 * @param studentNum
-	 *            Ñ§ÉúÑ§ºÅ
+	 *            å­¦ç”Ÿå­¦å·
 	 * @param schoolYear
-	 *            Ñ§Äê
+	 *            å­¦å¹´
 	 * @param semester
-	 *            Ñ§ÆÚ
+	 *            å­¦æœŸ
 	 * @return
 	 */
 	public List<Course> showTimetable(String studentNum, String schoolYear,

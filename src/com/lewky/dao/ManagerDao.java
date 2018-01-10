@@ -12,304 +12,304 @@ import com.lewky.bean.Teacher;
 public interface ManagerDao {
 
 	/**
-	 * Í¨¹ı¹ÜÀíÔ±¹¤ºÅºÍÃÜÂë½øĞĞµÇÂ¼
+	 * é€šè¿‡ç®¡ç†å‘˜å·¥å·å’Œå¯†ç è¿›è¡Œç™»å½•
 	 * 
 	 * @param managerNum
-	 *            ¹ÜÀíÔ±¹¤ºÅ
+	 *            ç®¡ç†å‘˜å·¥å·
 	 * @param password
-	 *            ÃÜÂë
-	 * @return µÇÂ¼³É¹¦·µ»Ø¸Ã¹ÜÀíÔ±£¬·ñÔò·µ»Ønull
+	 *            å¯†ç 
+	 * @return ç™»å½•æˆåŠŸè¿”å›è¯¥ç®¡ç†å‘˜ï¼Œå¦åˆ™è¿”å›null
 	 */
 	public Manager login(String managerNum, String password);
 
 	/**
-	 * ÁĞ³öµ±Ç°Ò³ÃæË÷ÒıµÄÑ§Éú
-	 * @param currentPageIndex	µ±Ç°Ò³ÃæµÄË÷Òı
-	 * @param count	Ã¿Ò³ÒªÏÔÊ¾µÄÊı¾İÊıÁ¿
-	 * @param deptName	Òª²éÑ¯µÄÑ§ÉúµÄ×¨ÒµºÅÂë
-	 * @return	²éÑ¯Ñ§ÉúÔò·µ»Øµ±Ç°Ò³ÃæÑ§ÉúµÄ¼¯ºÏ£¬·ñÔò·µ»Ønull
+	 * åˆ—å‡ºå½“å‰é¡µé¢ç´¢å¼•çš„å­¦ç”Ÿ
+	 * @param currentPageIndex	å½“å‰é¡µé¢çš„ç´¢å¼•
+	 * @param count	æ¯é¡µè¦æ˜¾ç¤ºçš„æ•°æ®æ•°é‡
+	 * @param deptName	è¦æŸ¥è¯¢çš„å­¦ç”Ÿçš„ä¸“ä¸šå·ç 
+	 * @return	æŸ¥è¯¢å­¦ç”Ÿåˆ™è¿”å›å½“å‰é¡µé¢å­¦ç”Ÿçš„é›†åˆï¼Œå¦åˆ™è¿”å›null
 	 */
 	public List<Student> listPageStudents(int currentPageIndex, int count,
 			String majorName);
 
 	/**
-	 * ÁĞ³öµ±Ç°Ò³ÃæË÷ÒıµÄ½ÌÊ¦
-	 * @param currentPageIndex	µ±Ç°Ò³ÃæµÄË÷Òı
-	 * @param count	Ã¿Ò³ÒªÏÔÊ¾µÄÊı¾İÊıÁ¿
-	 * @param deptName	Òª²éÑ¯µÄ½ÌÊ¦µÄÏµºÅÂë
-	 * @return	²éÑ¯µ½½ÌÊ¦Ôò·µ»Øµ±Ç°Ò³Ãæ½ÌÊ¦µÄ¼¯ºÏ£¬·ñÔò·µ»Ønull
+	 * åˆ—å‡ºå½“å‰é¡µé¢ç´¢å¼•çš„æ•™å¸ˆ
+	 * @param currentPageIndex	å½“å‰é¡µé¢çš„ç´¢å¼•
+	 * @param count	æ¯é¡µè¦æ˜¾ç¤ºçš„æ•°æ®æ•°é‡
+	 * @param deptName	è¦æŸ¥è¯¢çš„æ•™å¸ˆçš„ç³»å·ç 
+	 * @return	æŸ¥è¯¢åˆ°æ•™å¸ˆåˆ™è¿”å›å½“å‰é¡µé¢æ•™å¸ˆçš„é›†åˆï¼Œå¦åˆ™è¿”å›null
 	 */
 	public List<Teacher> listPageTeachers(int currentPageIndex, int count,
 			String deptName);
 
 	/**
-	 * ÁĞ³öËùÓĞ¿Î³Ì
+	 * åˆ—å‡ºæ‰€æœ‰è¯¾ç¨‹
 	 * 
 	 * @return
 	 */
 	public List<Course> listCourses();
 
 	/**
-	 * ÁĞ³öËùÓĞĞèÒªÉóºËµÄ¿Î³Ì
+	 * åˆ—å‡ºæ‰€æœ‰éœ€è¦å®¡æ ¸çš„è¯¾ç¨‹
 	 * 
 	 * @return
 	 */
 	public List<Course> listExaminedCourses();
 
 	/**
-	 * Ìí¼ÓÒ»¸öÑ§Éú
+	 * æ·»åŠ ä¸€ä¸ªå­¦ç”Ÿ
 	 * 
 	 * @param student
-	 *            ÒªÌí¼ÓµÄÑ§Éú
+	 *            è¦æ·»åŠ çš„å­¦ç”Ÿ
 	 * @return
 	 */
 	public boolean addStudent(Student student);
 
 	/**
-	 * Ìí¼ÓÒ»¸ö½ÌÊ¦
+	 * æ·»åŠ ä¸€ä¸ªæ•™å¸ˆ
 	 * 
 	 * @param teacher
-	 *            ÒªÌí¼ÓµÄ½ÌÊ¦
+	 *            è¦æ·»åŠ çš„æ•™å¸ˆ
 	 * @return
 	 */
 	public boolean addTeacher(Teacher teacher);
 
 	/**
-	 * ÉóºË¿Î³Ì
+	 * å®¡æ ¸è¯¾ç¨‹
 	 * 
 	 * @param courseNums
-	 *            ÒªÉóºËµÄ¿Î³ÌºÅÂë
+	 *            è¦å®¡æ ¸çš„è¯¾ç¨‹å·ç 
 	 * @param op
-	 *            Òª½øĞĞµÄ²Ù×÷
+	 *            è¦è¿›è¡Œçš„æ“ä½œ
 	 * @return
 	 */
 	public boolean examineCourses(String[] courseNums, String op);
 
 	/**
-	 * É¾³ıÑ§Éú
+	 * åˆ é™¤å­¦ç”Ÿ
 	 * 
 	 * @param studentsNum
-	 *            ÒªÉ¾³ıµÄÑ§ÉúÑ§ºÅ
+	 *            è¦åˆ é™¤çš„å­¦ç”Ÿå­¦å·
 	 * @return
 	 */
 	public boolean deleteStudents(String[] studentNums);
 
 	/**
-	 * É¾³ı½ÌÊ¦
+	 * åˆ é™¤æ•™å¸ˆ
 	 * 
 	 * @param teachersNum
-	 *            ÒªÉ¾³ıµÄ½ÌÊ¦¹¤ºÅ
+	 *            è¦åˆ é™¤çš„æ•™å¸ˆå·¥å·
 	 * @return
 	 */
 	public boolean deleteTeachers(String[] teacherNums);
 
 	/**
-	 * É¾³ı¿Î³Ì
+	 * åˆ é™¤è¯¾ç¨‹
 	 * 
 	 * @param coursesNum
-	 *            ÒªÉ¾³ıµÄ¿Î³ÌºÅÂë
+	 *            è¦åˆ é™¤çš„è¯¾ç¨‹å·ç 
 	 * @return
 	 */
 	public boolean deleteCourses(String[] courseNums);
 
 	/**
-	 * Í¨¹ı¿Î³ÌºÅÂëÕÒµ½¿Î³Ì
+	 * é€šè¿‡è¯¾ç¨‹å·ç æ‰¾åˆ°è¯¾ç¨‹
 	 * 
 	 * @param courseNum
-	 *            ÒªÕÒµÄ¿Î³ÌµÄºÅÂë
-	 * @return ÕÒµ½Ôò·µ»Ø¸Ã¿Î³Ì£¬·ñÔò·µ»Ønull
+	 *            è¦æ‰¾çš„è¯¾ç¨‹çš„å·ç 
+	 * @return æ‰¾åˆ°åˆ™è¿”å›è¯¥è¯¾ç¨‹ï¼Œå¦åˆ™è¿”å›null
 	 */
 	public Course findCourseByCourseNum(String courseNum);
 	
 	/**
-	 * Í¨¹ıÑ§ºÅÕÒµ½Ñ§Éú
+	 * é€šè¿‡å­¦å·æ‰¾åˆ°å­¦ç”Ÿ
 	 * 
 	 * @param courseNum
-	 *            ÒªÕÒµÄÑ§ÉúµÄÑ§ºÅ
-	 * @return ÕÒµ½Ôò·µ»Ø¸ÃÑ§Éú£¬·ñÔò·µ»Ønull
+	 *            è¦æ‰¾çš„å­¦ç”Ÿçš„å­¦å·
+	 * @return æ‰¾åˆ°åˆ™è¿”å›è¯¥å­¦ç”Ÿï¼Œå¦åˆ™è¿”å›null
 	 */
 	public Student findStudentByStudentNum(String studentNum);
 	
 	/**
-	 * Í¨¹ı½ÌÊ¦¹¤ºÅÕÒµ½½ÌÊ¦
+	 * é€šè¿‡æ•™å¸ˆå·¥å·æ‰¾åˆ°æ•™å¸ˆ
 	 * 
 	 * @param courseNum
-	 *            ÒªÕÒµÄ½ÌÊ¦µÄ¹¤ºÅ
-	 * @return ÕÒµ½Ôò·µ»Ø¸Ã½ÌÊ¦£¬·ñÔò·µ»Ønull
+	 *            è¦æ‰¾çš„æ•™å¸ˆçš„å·¥å·
+	 * @return æ‰¾åˆ°åˆ™è¿”å›è¯¥æ•™å¸ˆï¼Œå¦åˆ™è¿”å›null
 	 */
 	public Teacher findTeacherByTeacherNum(String teacherNum);
 
 	/**
-	 * ĞŞ¸Ä¿Î³Ì
+	 * ä¿®æ”¹è¯¾ç¨‹
 	 * 
 	 * @param course
-	 *            ÒªĞŞ¸ÄµÄ¿Î³Ì
+	 *            è¦ä¿®æ”¹çš„è¯¾ç¨‹
 	 * @return
 	 */
 	public boolean updateCourse(Course course);
 	
 	/**
-	 * ĞŞ¸ÄÑ§Éú
+	 * ä¿®æ”¹å­¦ç”Ÿ
 	 * 
 	 * @param course
-	 *            ÒªĞŞ¸ÄµÄÑ§Éú
+	 *            è¦ä¿®æ”¹çš„å­¦ç”Ÿ
 	 * @return
 	 */
 	public boolean updateStudent(Student student);
 	
 	/**
-	 * ĞŞ¸Ä½ÌÊ¦
+	 * ä¿®æ”¹æ•™å¸ˆ
 	 * 
 	 * @param course
-	 *            ÒªĞŞ¸ÄµÄ½ÌÊ¦
+	 *            è¦ä¿®æ”¹çš„æ•™å¸ˆ
 	 * @return
 	 */
 	public boolean updateTeacher(Teacher teacher);
 
 	/**
-	 * ĞŞ¸ÄÃÜÂë
+	 * ä¿®æ”¹å¯†ç 
 	 * 
 	 * @param managerNum
-	 *            ÒªĞŞ¸ÄµÄ¹ÜÀíÔ±µÄºÅÂë
+	 *            è¦ä¿®æ”¹çš„ç®¡ç†å‘˜çš„å·ç 
 	 * @param newPassword
-	 *            ĞÂÃÜÂë
-	 * @return ĞŞ¸Ä³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	 *            æ–°å¯†ç 
+	 * @return ä¿®æ”¹æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	 */
 	public boolean changePassword(String managerNum, String newPassword);
 
 	/**
-	 * ²éÑ¯µ±Ç°Ñ¡¿Î×´Ì¬
+	 * æŸ¥è¯¢å½“å‰é€‰è¯¾çŠ¶æ€
 	 * 
 	 * @return
 	 */
 	public boolean showStatus();
 
 	/**
-	 * ÉèÖÃÑ¡¿Î×´Ì¬ºÍÑ§ÄêÑ§ÆÚ
+	 * è®¾ç½®é€‰è¯¾çŠ¶æ€å’Œå­¦å¹´å­¦æœŸ
 	 * 
 	 * @param schoolYear
-	 *            Ñ§Äê
+	 *            å­¦å¹´
 	 * @param semester
-	 *            Ñ§ÆÚ
+	 *            å­¦æœŸ
 	 * @param status
-	 *            Ñ¡¿Î×´Ì¬
+	 *            é€‰è¯¾çŠ¶æ€
 	 * @return
 	 */
 	public Boolean permitCourseSelection(String schoolYear, String semester,
 			String status);
 
 	/**
-	 * ²éÑ¯µ±Ç°µÄÑ§ÆÚ
+	 * æŸ¥è¯¢å½“å‰çš„å­¦æœŸ
 	 * 
 	 * @return
 	 */
 	public String showSemester();
 
 	/**
-	 * ²éÑ¯µ±Ç°µÄÑ§Äê
+	 * æŸ¥è¯¢å½“å‰çš„å­¦å¹´
 	 * 
 	 * @return
 	 */
 	public String showSchoolYear();
 
 	/**
-	 * ²éÑ¯Ñ§ÔºĞÅÏ¢
+	 * æŸ¥è¯¢å­¦é™¢ä¿¡æ¯
 	 * 
 	 * @return
 	 */
 	public List<Dept> showDept();
 
 	/**
-	 * ²éÑ¯×¨ÒµĞÅÏ¢
+	 * æŸ¥è¯¢ä¸“ä¸šä¿¡æ¯
 	 * 
 	 * @return
 	 */
 	public List<Major> showMajor();
 
 	/**
-	 * ²éÑ¯¸öÈËĞÅÏ¢
+	 * æŸ¥è¯¢ä¸ªäººä¿¡æ¯
 	 * 
 	 * @return
 	 */
 	public Manager showInfo(String managerNum);
 
 	/**
-	 * ¸ù¾İµ±Ç°Ò³ÃæË÷Òı²éÑ¯´ËÒ³ÃæÒªÏÔÊ¾µÄÊı¾İ
+	 * æ ¹æ®å½“å‰é¡µé¢ç´¢å¼•æŸ¥è¯¢æ­¤é¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®
 	 * 
 	 * @param currentPageIndex
-	 *            µ±Ç°Ò³ÃæµÄË÷Òı
+	 *            å½“å‰é¡µé¢çš„ç´¢å¼•
 	 * @param count
-	 *            Ò³ÃæÒªÏÔÊ¾µÄÊı¾İÊıÁ¿
+	 *            é¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®æ•°é‡
 	 * @param schoolYear
-	 *            µ±Ç°Ñ§Äê
+	 *            å½“å‰å­¦å¹´
 	 * @param semester
-	 *            µ±Ç°Ñ§ÆÚ
-	 * @return ·µ»Ø´ËÒ³Êı¾İµÄÒ»¸ö¼¯ºÏ
+	 *            å½“å‰å­¦æœŸ
+	 * @return è¿”å›æ­¤é¡µæ•°æ®çš„ä¸€ä¸ªé›†åˆ
 	 */
 	public List<Course> listPageCourses(int currentPageIndex, int count,
 			String schoolYear, String semester);
 
 	/**
-	 * »ñÈ¡¿Î³Ì±íÖĞÊı¾İµÄ×ÜÊı
+	 * è·å–è¯¾ç¨‹è¡¨ä¸­æ•°æ®çš„æ€»æ•°
 	 * 
 	 * @param schoolYear
-	 *            µ±Ç°Ñ§ÆÚ
+	 *            å½“å‰å­¦æœŸ
 	 * @param semester
-	 *            µ±Ç°Ñ§Äê
+	 *            å½“å‰å­¦å¹´
 	 * @return
 	 */
 	public int showTotalDataCount(String schoolYear, String semester);
 
 	/**
-	 * »ñÈ¡ÉóºË±íÖĞÊı¾İµÄ×ÜÊı
+	 * è·å–å®¡æ ¸è¡¨ä¸­æ•°æ®çš„æ€»æ•°
 	 * 
 	 * @param schoolYear
-	 *            µ±Ç°Ñ§ÆÚ
+	 *            å½“å‰å­¦æœŸ
 	 * @param semester
-	 *            µ±Ç°Ñ§Äê
+	 *            å½“å‰å­¦å¹´
 	 * @return
 	 */
 	public int showExaminedCoursesCount();
 
 	/**
-	 * »ñÈ¡Ñ§Éú±íÖĞÊı¾İµÄ×ÜÊı
+	 * è·å–å­¦ç”Ÿè¡¨ä¸­æ•°æ®çš„æ€»æ•°
 	 * 
 	 * @param majorName
-	 *            Òª²éÑ¯µÄÑ§ÉúµÄ×¨ÒµÃû³Æ
+	 *            è¦æŸ¥è¯¢çš„å­¦ç”Ÿçš„ä¸“ä¸šåç§°
 	 * @return
 	 */
 	public int showStudentsCount(String majorName);
 
 	/**
-	 * »ñÈ¡½ÌÊ¦±íÖĞÊı¾İµÄ×ÜÊı
+	 * è·å–æ•™å¸ˆè¡¨ä¸­æ•°æ®çš„æ€»æ•°
 	 * 
 	 * @param deptName
-	 *            Òª²éÑ¯µÄ½ÌÊ¦µÄÏµÃû³Æ
+	 *            è¦æŸ¥è¯¢çš„æ•™å¸ˆçš„ç³»åç§°
 	 * @return
 	 */
 	public int showTeachersCount(String deptName);
 
 	/**
-	 * »ñÈ¡ĞÂµÄ½ÌÊ¦¹¤ºÅ
+	 * è·å–æ–°çš„æ•™å¸ˆå·¥å·
 	 * 
 	 * @return
 	 */
 	public String showNewTeacherNum();
 	
 	/**
-	 * »ñÈ¡ĞÂµÄÑ§ÉúÑ§ºÅ
+	 * è·å–æ–°çš„å­¦ç”Ÿå­¦å·
 	 * 
 	 * @return
 	 */
 	public String showNewStudentNum();
 
 	/**
-	 * ÁĞ³öµ±Ç°Ò³ÃæĞèÒªÉóºËµÄ¿Î³Ì
+	 * åˆ—å‡ºå½“å‰é¡µé¢éœ€è¦å®¡æ ¸çš„è¯¾ç¨‹
 	 * 
 	 * @param currentPageIndex
-	 *            µ±Ç°Ò³ÃæµÄË÷Òı
+	 *            å½“å‰é¡µé¢çš„ç´¢å¼•
 	 * @param count
-	 *            Ò³ÃæÒªÏÔÊ¾µÄÊı¾İÊıÁ¿
+	 *            é¡µé¢è¦æ˜¾ç¤ºçš„æ•°æ®æ•°é‡
 	 * @return
 	 */
 	public List<Course> listPageExaminedCourses(int currentPageIndex, int count);

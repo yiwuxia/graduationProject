@@ -5,25 +5,25 @@ import java.util.Date;
 
 public class Teacher implements Serializable {
 
-	private String teacherNum; // ½ÌÊ¦¹¤ºÅ
+	private String teacherNum; // æ•™å¸ˆå·¥å·
 
-	private String deptNum; // ÏµºÅÂë
+	private String deptNum; // ç³»å·ç 
 
-	private String deptName; // ÏµÃû³Æ
+	private String deptName; // ç³»åç§°
 
-	private String name; // ĞÕÃû
+	private String name; // å§“å
 
-	private String gender; // ĞÔ±ğ
+	private String gender; // æ€§åˆ«
 
-	private Date birthday; // ³öÉúÈÕÆÚ
+	private Date birthday; // å‡ºç”Ÿæ—¥æœŸ
 
-	private String password; // ÃÜÂë
+	private String password; // å¯†ç 
 
-	private String teacherTitle; // Ö°³Æ
+	private String teacherTitle; // èŒç§°
 	
-	private String email; // ÓÊÏäµØÖ·
+	private String email; // é‚®ç®±åœ°å€
 	
-	private String cellphone; // ÁªÏµµç»°
+	private String cellphone; // è”ç³»ç”µè¯
 
 	public String getTeacherNum() {
 		return teacherNum;

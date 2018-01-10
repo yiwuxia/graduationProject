@@ -40,7 +40,7 @@ import com.lewky.web.formbean.TeacherFormBean;
 
 /**
  * @author 123 E-mail: lewkyliu@gmail.com
- * @version ´´½¨Ê±¼ä£º2017-4-1 ÉÏÎç9:54:00
+ * @version åˆ›å»ºæ—¶é—´ï¼š2017-4-1 ä¸Šåˆ9:54:00
  */
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
@@ -56,10 +56,10 @@ public class Controller extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄĞÅÏ¢
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„ä¿¡æ¯
 		String op = request.getParameter("op");
 
-		// ÅĞ¶Ï½øĞĞÄÄÒ»ÖÖ²Ù×÷
+		// åˆ¤æ–­è¿›è¡Œå“ªä¸€ç§æ“ä½œ
 		if ("login".equals(op)) {
 			login(request, response);
 		} else if ("quitLogin".equals(op)) {
@@ -145,82 +145,82 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	//²éÑ¯¸öÈË¿Î±í
+	//æŸ¥è¯¢ä¸ªäººè¯¾è¡¨
 	private void showTimetable(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½sessionÀïµÄĞÅÏ¢
+		// æ‹¿åˆ°sessioné‡Œçš„ä¿¡æ¯
 		String userType = (String) request.getSession()
 				.getAttribute("userType");
-		// ÄÃµ½Ò³Ãæ´«µİµÄĞÅÏ¢
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„ä¿¡æ¯
 		String schoolYear = request.getParameter("schoolYear");
 		String semester = request.getParameter("semester");
 
-		// ÅĞ¶ÏÑ§ÆÚÑ§ÄêÊÇ·ñÎª¿Õ
+		// åˆ¤æ–­å­¦æœŸå­¦å¹´æ˜¯å¦ä¸ºç©º
 		if (schoolYear == null || semester == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ñ§ÄêºÍµ±Ç°Ñ§ÆÚ
+			// é»˜è®¤ä¸ºå½“å‰å­¦å¹´å’Œå½“å‰å­¦æœŸ
 			schoolYear = ms.showSchoolYear();
 			semester = ms.showSemester();
 		}
 
-		// ½«schoolYear,semester´æÈësession¶ÔÏóÖĞ
+		// å°†schoolYear,semesterå­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("schoolYear", schoolYear);
 		request.getSession().setAttribute("semester", semester);
 
-		// ÅĞ¶ÏÓÃ»§µÄÀàĞÍ
+		// åˆ¤æ–­ç”¨æˆ·çš„ç±»å‹
 		if ("student".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇÑ§Éú
-			//ÄÃµ½Ñ§ÉúÑ§ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯å­¦ç”Ÿ
+			//æ‹¿åˆ°å­¦ç”Ÿå­¦å·
 			Student student = (Student) request.getSession().getAttribute("loginUser");
 			String studentNum = student.getStudentNum();
 			
-			//µ÷ÓÃserviceÍê³ÉÒµÎñÂß¼­
+			//è°ƒç”¨serviceå®Œæˆä¸šåŠ¡é€»è¾‘
 			List<Course> list = ss.showTimetable(studentNum, schoolYear, semester);
 			List<List<String>> week = ss.showCourseWeek(studentNum, schoolYear, semester);
 			List<List<String>> time = ss.showCourseTime(studentNum, schoolYear, semester);
 			List<List<String>> weekday = ss.showCourseWeekday(studentNum, schoolYear, semester);
 			List<List<String>> place = ss.showCoursePlace(studentNum, schoolYear, semester);
-			//½«list,week,time,weekday,place´æÈësession¶ÔÏóÖĞ
+			//å°†list,week,time,weekday,placeå­˜å…¥sessionå¯¹è±¡ä¸­
 			request.getSession().setAttribute("list", list);
 			request.getSession().setAttribute("week", week);
 			request.getSession().setAttribute("time", time);
 			request.getSession().setAttribute("weekday", weekday);
 			request.getSession().setAttribute("place", place);
-			//Ìø×ªÏò¸öÈË¿Î±íÒ³Ãæ
+			//è·³è½¬å‘ä¸ªäººè¯¾è¡¨é¡µé¢
 			response.sendRedirect(request.getContextPath() + "/showTimetable.jsp");
 			
 		}else if ("teacher".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇ½ÌÊ¦
-			//ÄÃµ½½ÌÊ¦¹¤ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯æ•™å¸ˆ
+			//æ‹¿åˆ°æ•™å¸ˆå·¥å·
 			Teacher teacher = (Teacher) request.getSession().getAttribute("loginUser");
 			String teacherNum = teacher.getTeacherNum();
 			
-			//µ÷ÓÃserviceÍê³ÉÒµÎñÂß¼­
+			//è°ƒç”¨serviceå®Œæˆä¸šåŠ¡é€»è¾‘
 			List<Course> list = ts.showTimetable(teacherNum, schoolYear, semester);
 			List<List<String>> week = ts.showCourseWeek(teacherNum, schoolYear, semester);
 			List<List<String>> time = ts.showCourseTime(teacherNum, schoolYear, semester);
 			List<List<String>> weekday = ts.showCourseWeekday(teacherNum, schoolYear, semester);
 			List<List<String>> place = ts.showCoursePlace(teacherNum, schoolYear, semester);
-			//½«list,week,time,weekday,place´æÈësession¶ÔÏóÖĞ
+			//å°†list,week,time,weekday,placeå­˜å…¥sessionå¯¹è±¡ä¸­
 			request.getSession().setAttribute("list", list);
 			request.getSession().setAttribute("week", week);
 			request.getSession().setAttribute("time", time);
 			request.getSession().setAttribute("weekday", weekday);
 			request.getSession().setAttribute("place", place);
-			//Ìø×ªÏò¸öÈË¿Î±íÒ³Ãæ
+			//è·³è½¬å‘ä¸ªäººè¯¾è¡¨é¡µé¢
 			response.sendRedirect(request.getContextPath() + "/showTimetable.jsp");
 		}
 	}
 
-	// Â¼Èë³É¼¨
+	// å½•å…¥æˆç»©
 	private void inputGrade(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ·â×°Ò³ÃæµÄÊı¾İ
+		// å°è£…é¡µé¢çš„æ•°æ®
 		CourseSelectionFormBean csfb = WebUtils.fillFormBean(
 				CourseSelectionFormBean.class, request);
 
-		// ¿½±´Êı¾İ
+		// æ‹·è´æ•°æ®
 		CourseSelection courseSelection = new CourseSelection();
 		try {
 			BeanUtils.copyProperties(courseSelection, csfb);
@@ -229,123 +229,123 @@ public class Controller extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		boolean flag = ts.inputGrade(courseSelection);
 		showGrade(request, response);
 	}
 
-	// Ìø×ªÏòÂ¼Èë³É¼¨Ò³Ãæ
+	// è·³è½¬å‘å½•å…¥æˆç»©é¡µé¢
 	private void toInputGrade(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄĞÅÏ¢
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„ä¿¡æ¯
 		String courseNum = request.getParameter("courseNum");
 		String studentNum = request.getParameter("studentNum");
-		// µ÷ÓÃserviceÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå®Œæˆä¸šåŠ¡é€»è¾‘
 		CourseSelection courseSelection = ts.showGrade(courseNum, studentNum);
-		// ½«courseSelection´æÈësession¶ÔÏóÖĞ
+		// å°†courseSelectionå­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("courseSelection", courseSelection);
-		// Ìø×ªÏòÂ¼Èë³É¼¨Ò³Ãæ
+		// è·³è½¬å‘å½•å…¥æˆç»©é¡µé¢
 		response.sendRedirect(request.getContextPath() + "/inputGrade.jsp");
 	}
 
-	// ÏÔÊ¾½ÌÊ¦µ±Ç°Ñ§ÆÚµÄ¿Î³Ì
+	// æ˜¾ç¤ºæ•™å¸ˆå½“å‰å­¦æœŸçš„è¯¾ç¨‹
 	private void currentCourses(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// ÄÃµ½Ò³Ãæ´«µİµÄĞÅÏ¢
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„ä¿¡æ¯
 		String currentPageIndex = request.getParameter("currentPageIndex");
 		Page page = (Page) request.getSession().getAttribute("page");
 
-		// »ñÈ¡µ±Ç°Ñ§ÄêÑ§ÆÚ
+		// è·å–å½“å‰å­¦å¹´å­¦æœŸ
 		String schoolYear = ms.showSchoolYear();
 		String semester = ms.showSemester();
 
 		if (page != null & currentPageIndex != null) {
 			int pageCount = page.getPageCount();
-			// ÅĞ¶ÏÒ³ÃæÊÇ·ñ´óÓÚ×ÜÒ³Ãæ
+			// åˆ¤æ–­é¡µé¢æ˜¯å¦å¤§äºæ€»é¡µé¢
 			if (Integer.parseInt(currentPageIndex) > pageCount) {
 				currentPageIndex = pageCount + "";
 			}
 		}
 
-		// ÅĞ¶Ïµ±Ç°Ò³ÃæÊÇ·ñÎª¿Õ»òÎªÁã
+		// åˆ¤æ–­å½“å‰é¡µé¢æ˜¯å¦ä¸ºç©ºæˆ–ä¸ºé›¶
 		if (currentPageIndex == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ò³ÃæÎªµÚÒ»Ò³
+			// é»˜è®¤ä¸ºå½“å‰é¡µé¢ä¸ºç¬¬ä¸€é¡µ
 			currentPageIndex = "1";
 		} else if ("0".equals(currentPageIndex)) {
 			currentPageIndex = "1";
 		}
 
-		// ½«schoolYear,semester´æÈësession¶ÔÏóÖĞ
+		// å°†schoolYear,semesterå­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("schoolYear", schoolYear);
 		request.getSession().setAttribute("semester", semester);
 
-		// ´ÓsessionÖĞ»ñÈ¡½ÌÊ¦¹¤ºÅ
+		// ä»sessionä¸­è·å–æ•™å¸ˆå·¥å·
 		Teacher teacher = (Teacher) request.getSession().getAttribute(
 				"loginUser");
 		String teacherNum = teacher.getTeacherNum();
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		page = ts.listPageCourses(teacherNum,
 				Integer.parseInt(currentPageIndex), 7, schoolYear, semester);
 		boolean status = ts.showStatus();
-		// ½«status,page´æÈëµ½session¶ÔÏóÖĞ
+		// å°†status,pageå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("status", status);
 		request.getSession().setAttribute("page", page);
 		response.sendRedirect(request.getContextPath() + "/currentCourses.jsp");
 	}
 
-	// ÍË³öµÇÂ¼£¬»Øµ½µÇÂ¼½çÃæ
+	// é€€å‡ºç™»å½•ï¼Œå›åˆ°ç™»å½•ç•Œé¢
 	private void quitLogin(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ½«session¶ÔÏóÖĞµÄerrorÊôĞÔÇå³ı
+		// å°†sessionå¯¹è±¡ä¸­çš„errorå±æ€§æ¸…é™¤
 		request.getSession().setAttribute("error", "");
-		// Ìø×ªµ½µÇÂ½½çÃæ
+		// è·³è½¬åˆ°ç™»é™†ç•Œé¢
 		response.sendRedirect(request.getContextPath() + "/index.jsp");
 	}
 
-	// ÏÔÊ¾¿Î³ÌÏêÇé
+	// æ˜¾ç¤ºè¯¾ç¨‹è¯¦æƒ…
 	private void showCourse(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String courseNum = request.getParameter("courseNum");
 		String currentPageIndex = request.getParameter("currentPageIndex");
 		Page page = (Page) request.getSession().getAttribute("page");
 
 		if (page != null & currentPageIndex != null) {
 			int pageCount = page.getPageCount();
-			// ÅĞ¶ÏÒ³ÃæÊÇ·ñ´óÓÚ×ÜÒ³Ãæ
+			// åˆ¤æ–­é¡µé¢æ˜¯å¦å¤§äºæ€»é¡µé¢
 			if (Integer.parseInt(currentPageIndex) > pageCount) {
 				currentPageIndex = pageCount + "";
 			}
 		}
 
-		// ÅĞ¶Ïµ±Ç°Ò³ÃæÊÇ·ñÎª¿Õ»òÎªÁã
+		// åˆ¤æ–­å½“å‰é¡µé¢æ˜¯å¦ä¸ºç©ºæˆ–ä¸ºé›¶
 		if (currentPageIndex == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ò³ÃæÎªµÚÒ»Ò³
+			// é»˜è®¤ä¸ºå½“å‰é¡µé¢ä¸ºç¬¬ä¸€é¡µ
 			currentPageIndex = "1";
 		} else if ("0".equals(currentPageIndex)) {
 			currentPageIndex = "1";
 		}
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		page = ts.showCourse(courseNum, Integer.parseInt(currentPageIndex), 10);
-		// ½«page´æÈëµ½session¶ÔÏóÖĞ
+		// å°†pageå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("page", page);
 		response.sendRedirect(request.getContextPath() + "/showCourse.jsp");
 	}
 
-	// Ìø×ªÏò²é¿´³É¼¨Ò³Ãæ
+	// è·³è½¬å‘æŸ¥çœ‹æˆç»©é¡µé¢
 	private void showGrade(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½sessionÀïµÄĞÅÏ¢
+		// æ‹¿åˆ°sessioné‡Œçš„ä¿¡æ¯
 		String userType = (String) request.getSession()
 				.getAttribute("userType");
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String courseNum = request.getParameter("courseNum");
 		String schoolYear = request.getParameter("schoolYear");
 		String semester = request.getParameter("semester");
@@ -354,64 +354,64 @@ public class Controller extends HttpServlet {
 
 		if (page != null & currentPageIndex != null) {
 			int pageCount = page.getPageCount();
-			// ÅĞ¶ÏÒ³ÃæÊÇ·ñ´óÓÚ×ÜÒ³Ãæ
+			// åˆ¤æ–­é¡µé¢æ˜¯å¦å¤§äºæ€»é¡µé¢
 			if (Integer.parseInt(currentPageIndex) > pageCount) {
 				currentPageIndex = pageCount + "";
 			}
 		}
 
-		// ÅĞ¶ÏÑ§ÆÚÑ§ÄêÊÇ·ñÎª¿Õ
+		// åˆ¤æ–­å­¦æœŸå­¦å¹´æ˜¯å¦ä¸ºç©º
 		if (schoolYear == null || semester == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ñ§ÄêºÍµ±Ç°Ñ§ÆÚ
+			// é»˜è®¤ä¸ºå½“å‰å­¦å¹´å’Œå½“å‰å­¦æœŸ
 			schoolYear = ms.showSchoolYear();
 			semester = ms.showSemester();
 		}
 		
-		// ÅĞ¶Ïµ±Ç°Ò³ÃæÊÇ·ñÎª¿Õ»òÎªÁã
+		// åˆ¤æ–­å½“å‰é¡µé¢æ˜¯å¦ä¸ºç©ºæˆ–ä¸ºé›¶
 		if (currentPageIndex == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ò³ÃæÎªµÚÒ»Ò³
+			// é»˜è®¤ä¸ºå½“å‰é¡µé¢ä¸ºç¬¬ä¸€é¡µ
 			currentPageIndex = "1";
 		} else if ("0".equals(currentPageIndex)) {
 			currentPageIndex = "1";
 		}
 
-		// ÅĞ¶ÏÓÃ»§µÄÀàĞÍ
+		// åˆ¤æ–­ç”¨æˆ·çš„ç±»å‹
 		if ("teacher".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇ½ÌÊ¦
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+			// ç”¨æˆ·ç±»å‹æ˜¯æ•™å¸ˆ
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 			page = ts.showCourse(courseNum, Integer.parseInt(currentPageIndex),
 					10);
 
-			// ½«page´æÈëµ½session¶ÔÏóÖĞ
+			// å°†pageå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 			request.getSession().setAttribute("page", page);
 			response.sendRedirect(request.getContextPath() + "/showGrade.jsp");
 		} else if ("student".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇÑ§Éú
-			// ´ÓsessionÖĞ»ñÈ¡Ñ§ÉúÑ§ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯å­¦ç”Ÿ
+			// ä»sessionä¸­è·å–å­¦ç”Ÿå­¦å·
 			Student student = (Student) request.getSession().getAttribute(
 					"loginUser");
 			String studentNum = student.getStudentNum();
 
-			// ÅĞ¶ÏÑ§ÄêÊÇ·ñÎªall
+			// åˆ¤æ–­å­¦å¹´æ˜¯å¦ä¸ºall
 			if ("all".equals(schoolYear)) {
-				// ²éÑ¯¸ÃÑ§ÉúµÄËùÓĞÑ¡ĞŞ¿Î³Ì³É¼¨
-				// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+				// æŸ¥è¯¢è¯¥å­¦ç”Ÿçš„æ‰€æœ‰é€‰ä¿®è¯¾ç¨‹æˆç»©
+				// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 				page = ss.showGrade(studentNum,
 						Integer.parseInt(currentPageIndex), 10);
 
-				// ½«page,schoolYear,semester´æÈëµ½session¶ÔÏóÖĞ
+				// å°†page,schoolYear,semesterå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 				request.getSession().setAttribute("page", page);
 				request.getSession().setAttribute("schoolYear", "");
 				request.getSession().setAttribute("semester", "");
 				response.sendRedirect(request.getContextPath()
 						+ "/showStudentGrade.jsp");
 			} else {
-				// ²éÑ¯Ä³Ñ§ÄêÑ§ÆÚµÄÑ¡ĞŞ¿Î³Ì³É¼¨
-				// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+				// æŸ¥è¯¢æŸå­¦å¹´å­¦æœŸçš„é€‰ä¿®è¯¾ç¨‹æˆç»©
+				// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 				page = ss.showGrade(studentNum, schoolYear, semester,
 						Integer.parseInt(currentPageIndex), 10);
 
-				// ½«page,schoolYear,semester´æÈëµ½session¶ÔÏóÖĞ
+				// å°†page,schoolYear,semesterå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 				request.getSession().setAttribute("page", page);
 				request.getSession().setAttribute("schoolYear", schoolYear);
 				request.getSession().setAttribute("semester", semester);
@@ -421,18 +421,18 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	// ¸üĞÂ½ÌÊ¦
+	// æ›´æ–°æ•™å¸ˆ
 	private void updateTeacher(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ·â×°Ò³ÃæµÄÊı¾İ
+		// å°è£…é¡µé¢çš„æ•°æ®
 		TeacherFormBean tfb = WebUtils.fillFormBean(TeacherFormBean.class,
 				request);
-		// ¿½±´Êı¾İµ½Ò»¸öjavabeanÖĞ
+		// æ‹·è´æ•°æ®åˆ°ä¸€ä¸ªjavabeanä¸­
 		Teacher teacher = new Teacher();
 		if (tfb.getFormBirthday() != "") {
-			// ÉúÈÕ²»Îª¿Õ
-			// ÓÉÓÚÊ±¼äÊÇdateÀàĞÍ£¬ËùÒÔÊ×ÏÈ×¢²áÒ»¸öÊ±¼ä×ª»»Æ÷
+			// ç”Ÿæ—¥ä¸ä¸ºç©º
+			// ç”±äºæ—¶é—´æ˜¯dateç±»å‹ï¼Œæ‰€ä»¥é¦–å…ˆæ³¨å†Œä¸€ä¸ªæ—¶é—´è½¬æ¢å™¨
 			ConvertUtils.register(new DateLocaleConverter(), Date.class);
 			try {
 				BeanUtils.copyProperty(teacher, "birthday",
@@ -445,51 +445,51 @@ public class Controller extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			// Èç¹ûÉúÈÕÎª¿ÕÔò½«teacherÀïµÄbirthdayÉèÖÃÎªnull
+			// å¦‚æœç”Ÿæ—¥ä¸ºç©ºåˆ™å°†teacheré‡Œçš„birthdayè®¾ç½®ä¸ºnull
 			teacher.setBirthday(null);
 		}
 
-		// ¿½±´Êı¾İ
+		// æ‹·è´æ•°æ®
 		try {
 			BeanUtils.copyProperties(teacher, tfb);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		boolean flag = ms.updateTeacher(teacher);
 		toUpdateTeacher(request, response);
 	}
 
-	// Ìø×ªÏò¸üĞÂ½ÌÊ¦Ò³Ãæ
+	// è·³è½¬å‘æ›´æ–°æ•™å¸ˆé¡µé¢
 	private void toUpdateTeacher(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String teacherNum = request.getParameter("teacherNum");
-		// Í¨¹ıteacherNumÕÒµ½ÒªĞŞ¸ÄµÄ½ÌÊ¦
+		// é€šè¿‡teacherNumæ‰¾åˆ°è¦ä¿®æ”¹çš„æ•™å¸ˆ
 		Teacher teacher = ms.findTeacherByTeacherNum(teacherNum);
-		// ½«teacher´æÈësession¶ÔÏóÖĞ£¬²¢Ìø×ªÒ³Ãæ
+		// å°†teacherå­˜å…¥sessionå¯¹è±¡ä¸­ï¼Œå¹¶è·³è½¬é¡µé¢
 		request.getSession().setAttribute("teacher", teacher);
 
-		// »ñÈ¡Ñ§ÔºĞÅÏ¢£¬²¢½«dept´æÈësession¶ÔÏóÖĞ
+		// è·å–å­¦é™¢ä¿¡æ¯ï¼Œå¹¶å°†deptå­˜å…¥sessionå¯¹è±¡ä¸­
 		List<Dept> dept = ms.showDept();
 		request.getSession().setAttribute("dept", dept);
 		response.sendRedirect(request.getContextPath() + "/updateTeacher.jsp");
 	}
 
-	// ¸üĞÂÑ§Éú
+	// æ›´æ–°å­¦ç”Ÿ
 	private void updateStudent(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ·â×°Ò³ÃæµÄÊı¾İ
+		// å°è£…é¡µé¢çš„æ•°æ®
 		StudentFormBean sfb = WebUtils.fillFormBean(StudentFormBean.class,
 				request);
-		// ¿½±´Êı¾İµ½Ò»¸öjavabeanÖĞ
+		// æ‹·è´æ•°æ®åˆ°ä¸€ä¸ªjavabeanä¸­
 		Student student = new Student();
 		if (sfb.getFormBirthday() != "") {
-			// ÉúÈÕ²»Îª¿Õ
-			// ÓÉÓÚÊ±¼äÊÇdateÀàĞÍ£¬ËùÒÔÊ×ÏÈ×¢²áÒ»¸öÊ±¼ä×ª»»Æ÷
+			// ç”Ÿæ—¥ä¸ä¸ºç©º
+			// ç”±äºæ—¶é—´æ˜¯dateç±»å‹ï¼Œæ‰€ä»¥é¦–å…ˆæ³¨å†Œä¸€ä¸ªæ—¶é—´è½¬æ¢å™¨
 			ConvertUtils.register(new DateLocaleConverter(), Date.class);
 			try {
 				BeanUtils.copyProperty(student, "birthday",
@@ -502,399 +502,399 @@ public class Controller extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			// Èç¹ûÉúÈÕÎª¿ÕÔò½«studentÀïµÄbirthdayÉèÖÃÎªnull
+			// å¦‚æœç”Ÿæ—¥ä¸ºç©ºåˆ™å°†studenté‡Œçš„birthdayè®¾ç½®ä¸ºnull
 			student.setBirthday(null);
 		}
 
-		// ¿½±´Êı¾İ
+		// æ‹·è´æ•°æ®
 		try {
 			BeanUtils.copyProperties(student, sfb);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		boolean flag = ms.updateStudent(student);
 		toUpdateStudent(request, response);
 	}
 
-	// Ìø×ªÏò¸üĞÂÑ§ÉúÒ³Ãæ
+	// è·³è½¬å‘æ›´æ–°å­¦ç”Ÿé¡µé¢
 	private void toUpdateStudent(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String studentNum = request.getParameter("studentNum");
-		// Í¨¹ıstudentNumÕÒµ½ÒªĞŞ¸ÄµÄÑ§Éú
+		// é€šè¿‡studentNumæ‰¾åˆ°è¦ä¿®æ”¹çš„å­¦ç”Ÿ
 		Student student = ms.findStudentByStudentNum(studentNum);
-		// ½«student´æÈësession¶ÔÏóÖĞ£¬²¢Ìø×ªÒ³Ãæ
+		// å°†studentå­˜å…¥sessionå¯¹è±¡ä¸­ï¼Œå¹¶è·³è½¬é¡µé¢
 		request.getSession().setAttribute("student", student);
 
-		// »ñÈ¡Ñ§ÔºĞÅÏ¢£¬²¢½«dept´æÈësession¶ÔÏóÖĞ
+		// è·å–å­¦é™¢ä¿¡æ¯ï¼Œå¹¶å°†deptå­˜å…¥sessionå¯¹è±¡ä¸­
 		List<Dept> dept = ms.showDept();
 		request.getSession().setAttribute("dept", dept);
 		response.sendRedirect(request.getContextPath() + "/updateStudent.jsp");
 	}
 
-	// É¾³ı¶à¸öÑ§Éú
+	// åˆ é™¤å¤šä¸ªå­¦ç”Ÿ
 	private void deleteStudents(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String ids = request.getParameter("ids");
-		// ÓÉÓÚidsºó±ß¶àÁËÒ»¸ö¶ººÅ£¬ÒªÈ¥µô
+		// ç”±äºidsåè¾¹å¤šäº†ä¸€ä¸ªé€—å·ï¼Œè¦å»æ‰
 		ids = ids.substring(0, ids.length() - 1);
-		// ²ğ·Ö×Ö·û´®
+		// æ‹†åˆ†å­—ç¬¦ä¸²
 		String[] studentNums = ids.split(",");
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ms.deleteStudents(studentNums);
 		toListPageStudents(request, response);
 	}
 
-	// É¾³ıÒ»¸öÑ§Éú
+	// åˆ é™¤ä¸€ä¸ªå­¦ç”Ÿ
 	private void deleteStudent(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String studentNum = request.getParameter("id");
-		// ·Åµ½StringÊı×éÖĞ
+		// æ”¾åˆ°Stringæ•°ç»„ä¸­
 		String[] studentNums = new String[] { studentNum };
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ms.deleteStudents(studentNums);
 		toListPageStudents(request, response);
 	}
 
-	// É¾³ı¶à¸ö½ÌÊ¦
+	// åˆ é™¤å¤šä¸ªæ•™å¸ˆ
 	private void deleteTeachers(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String ids = request.getParameter("ids");
-		// ÓÉÓÚidsºó±ß¶àÁËÒ»¸ö¶ººÅ£¬ÒªÈ¥µô
+		// ç”±äºidsåè¾¹å¤šäº†ä¸€ä¸ªé€—å·ï¼Œè¦å»æ‰
 		ids = ids.substring(0, ids.length() - 1);
-		// ²ğ·Ö×Ö·û´®
+		// æ‹†åˆ†å­—ç¬¦ä¸²
 		String[] teacherNums = ids.split(",");
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ms.deleteTeachers(teacherNums);
 		toListPageTeachers(request, response);
 	}
 
-	// É¾³ıÒ»¸ö½ÌÊ¦
+	// åˆ é™¤ä¸€ä¸ªæ•™å¸ˆ
 	private void deleteTeacher(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String teacherNum = request.getParameter("id");
-		// ·Åµ½StringÊı×éÖĞ
+		// æ”¾åˆ°Stringæ•°ç»„ä¸­
 		String[] teacherNums = new String[] { teacherNum };
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ms.deleteTeachers(teacherNums);
 		toListPageTeachers(request, response);
 	}
 
-	// Ìø×ªÏòÉ¾¸ÄÑ§ÉúÒ³Ãæ
+	// è·³è½¬å‘åˆ æ”¹å­¦ç”Ÿé¡µé¢
 	private void toListPageStudents(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄĞÅÏ¢
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„ä¿¡æ¯
 		String deptName = request.getParameter("deptName");
 		String majorName = request.getParameter("majorName");
 		String currentPageIndex = request.getParameter("currentPageIndex");
 		Page page = (Page) request.getSession().getAttribute("page");
 
-		// ÅĞ¶ÏÒ³ÃæË÷ÒıµÄÖµ
+		// åˆ¤æ–­é¡µé¢ç´¢å¼•çš„å€¼
 		if (page != null & currentPageIndex != null) {
 			int pageCount = page.getPageCount();
 
-			// ÅĞ¶ÏÒ³ÃæË÷ÒıÊÇ·ñ´óÓÚ×ÜÒ³Ãæ
+			// åˆ¤æ–­é¡µé¢ç´¢å¼•æ˜¯å¦å¤§äºæ€»é¡µé¢
 			if (Integer.parseInt(currentPageIndex) > pageCount) {
 				currentPageIndex = pageCount + "";
 			}
 		}
 
-		// ÅĞ¶ÏÏµÃû³ÆÊÇ·ñÎª¿Õ
+		// åˆ¤æ–­ç³»åç§°æ˜¯å¦ä¸ºç©º
 		if (deptName == null) {
-			// Ä¬ÈÏÎª×Ô¶¯»¯Ñ§Ôº
-			deptName = "×Ô¶¯»¯Ñ§Ôº";
+			// é»˜è®¤ä¸ºè‡ªåŠ¨åŒ–å­¦é™¢
+			deptName = "è‡ªåŠ¨åŒ–å­¦é™¢";
 		} else {
 			deptName = new String(deptName.getBytes("iso8859-1"), "UTF-8");
 		}
 
-		// ÅĞ¶Ï×¨ÒµÃû³ÆÊÇ·ñÎª¿Õ
+		// åˆ¤æ–­ä¸“ä¸šåç§°æ˜¯å¦ä¸ºç©º
 		if (majorName == null) {
-			// Ä¬ÈÏÎªÎïÁªÍø¹¤³Ì×¨Òµ
-			majorName = "ÎïÁªÍø¹¤³Ì×¨Òµ";
+			// é»˜è®¤ä¸ºç‰©è”ç½‘å·¥ç¨‹ä¸“ä¸š
+			majorName = "ç‰©è”ç½‘å·¥ç¨‹ä¸“ä¸š";
 		} else {
 			majorName = new String(majorName.getBytes("iso8859-1"), "UTF-8");
 		}
 
-		// ÅĞ¶Ïµ±Ç°Ò³ÃæÊÇ·ñÎª¿Õ»òÎªÁã
+		// åˆ¤æ–­å½“å‰é¡µé¢æ˜¯å¦ä¸ºç©ºæˆ–ä¸ºé›¶
 		if (currentPageIndex == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ò³ÃæÎªµÚÒ»Ò³
+			// é»˜è®¤ä¸ºå½“å‰é¡µé¢ä¸ºç¬¬ä¸€é¡µ
 			currentPageIndex = "1";
 		} else if ("0".equals(currentPageIndex)) {
 			currentPageIndex = "1";
 		}
 
-		// ½«deptName,majorName´æÈësession¶ÔÏóÖĞ
+		// å°†deptName,majorNameå­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("deptName", deptName);
 		request.getSession().setAttribute("majorName", majorName);
 
-		// »ñÈ¡Ñ§ÔºĞÅÏ¢£¬²¢½«dept´æÈësession¶ÔÏóÖĞ
+		// è·å–å­¦é™¢ä¿¡æ¯ï¼Œå¹¶å°†deptå­˜å…¥sessionå¯¹è±¡ä¸­
 		List<Dept> dept = ms.showDept();
 		request.getSession().setAttribute("dept", dept);
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		page = ms.listPageStudents(Integer.parseInt(currentPageIndex), 7,
 				majorName);
-		// ½«page´æÈëµ½session¶ÔÏóÖĞ
+		// å°†pageå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("page", page);
 		response.sendRedirect(request.getContextPath()
 				+ "/listPageStudents.jsp");
 	}
 
-	// Ìø×ªÏòÉ¾¸Ä½ÌÊ¦Ò³Ãæ
+	// è·³è½¬å‘åˆ æ”¹æ•™å¸ˆé¡µé¢
 	private void toListPageTeachers(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄĞÅÏ¢
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„ä¿¡æ¯
 		String deptName = request.getParameter("deptName");
 		String currentPageIndex = request.getParameter("currentPageIndex");
 		Page page = (Page) request.getSession().getAttribute("page");
 
 		if (page != null & currentPageIndex != null) {
 			int pageCount = page.getPageCount();
-			// ÅĞ¶ÏÒ³ÃæÊÇ·ñ´óÓÚ×ÜÒ³Ãæ
+			// åˆ¤æ–­é¡µé¢æ˜¯å¦å¤§äºæ€»é¡µé¢
 			if (Integer.parseInt(currentPageIndex) > pageCount) {
 				currentPageIndex = pageCount + "";
 			}
 		}
 
-		// ÅĞ¶ÏÏµÃû³ÆÊÇ·ñÎª¿Õ
+		// åˆ¤æ–­ç³»åç§°æ˜¯å¦ä¸ºç©º
 		if (deptName == null) {
-			// Ä¬ÈÏÎª×Ô¶¯»¯Ñ§Ôº
-			deptName = "×Ô¶¯»¯Ñ§Ôº";
+			// é»˜è®¤ä¸ºè‡ªåŠ¨åŒ–å­¦é™¢
+			deptName = "è‡ªåŠ¨åŒ–å­¦é™¢";
 		} else {
 			deptName = new String(deptName.getBytes("iso8859-1"), "UTF-8");
 		}
 
-		// ÅĞ¶Ïµ±Ç°Ò³ÃæÊÇ·ñÎª¿Õ»òÎªÁã
+		// åˆ¤æ–­å½“å‰é¡µé¢æ˜¯å¦ä¸ºç©ºæˆ–ä¸ºé›¶
 		if (currentPageIndex == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ò³ÃæÎªµÚÒ»Ò³
+			// é»˜è®¤ä¸ºå½“å‰é¡µé¢ä¸ºç¬¬ä¸€é¡µ
 			currentPageIndex = "1";
 		} else if ("0".equals(currentPageIndex)) {
 			currentPageIndex = "1";
 		}
 
-		// ½«deptName´æÈësession¶ÔÏóÖĞ
+		// å°†deptNameå­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("deptName", deptName);
 
-		// »ñÈ¡Ñ§ÔºĞÅÏ¢£¬²¢½«dept´æÈësession¶ÔÏóÖĞ
+		// è·å–å­¦é™¢ä¿¡æ¯ï¼Œå¹¶å°†deptå­˜å…¥sessionå¯¹è±¡ä¸­
 		List<Dept> dept = ms.showDept();
 		request.getSession().setAttribute("dept", dept);
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		page = ms.listPageTeachers(Integer.parseInt(currentPageIndex), 7,
 				deptName);
-		// ½«page´æÈëµ½session¶ÔÏóÖĞ
+		// å°†pageå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("page", page);
 		response.sendRedirect(request.getContextPath()
 				+ "/listPageTeachers.jsp");
 	}
 
-	// Ìø×ªÏò·¢²¼¿Î³ÌÒ³Ãæ
+	// è·³è½¬å‘å‘å¸ƒè¯¾ç¨‹é¡µé¢
 	private void toAddCourse(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÉèÖÃµ±Ç°µÄÑ§ÄêÑ§ÆÚ
+		// è®¾ç½®å½“å‰çš„å­¦å¹´å­¦æœŸ
 		Calendar now = Calendar.getInstance();
 		int year = now.get(Calendar.YEAR);
 		String schoolYear = null;
 		String semester = null;
 		if (now.get(Calendar.MONTH) <= 8 & now.get(Calendar.MONTH) >= 1) {
-			// µ±Ç°ÎªµÚ¶şÑ§ÆÚ
+			// å½“å‰ä¸ºç¬¬äºŒå­¦æœŸ
 			semester = 2 + "";
 			schoolYear = (year - 1) + "-" + year;
 		} else {
-			// µ±Ç°ÎªµÚÒ»Ñ§ÆÚ
+			// å½“å‰ä¸ºç¬¬ä¸€å­¦æœŸ
 			semester = 1 + "";
 			schoolYear = year + "-" + (year + 1);
 		}
-		// ½«schoolYear,semester´æÈësession¶ÔÏóÖĞ
+		// å°†schoolYear,semesterå­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("schoolYear", schoolYear);
 		request.getSession().setAttribute("semester", semester);
 
-		// ²éÑ¯µ±Ç°Ñ¡¿Î×´Ì¬
+		// æŸ¥è¯¢å½“å‰é€‰è¯¾çŠ¶æ€
 		boolean status = ss.showStatus();
-		// ½«status´æÈëµ½session¶ÔÏóÖĞ
+		// å°†statuså­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("status", status);
 
-		// Ìø×ªÏò·¢²¼¿Î³ÌÒ³Ãæ
+		// è·³è½¬å‘å‘å¸ƒè¯¾ç¨‹é¡µé¢
 		response.sendRedirect(request.getContextPath() + "/addCourse.jsp");
 	}
 
-	// ÏÔÊ¾¸öÈËĞÅÏ¢
+	// æ˜¾ç¤ºä¸ªäººä¿¡æ¯
 	private void showInfo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½session¶ÔÏóÖĞµÄĞÅÏ¢
+		// æ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„ä¿¡æ¯
 		String userType = (String) request.getSession()
 				.getAttribute("userType");
 
 		if ("student".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇÑ§Éú£¬ÄÃµ½session¶ÔÏóÖĞµÄÑ§ÉúÑ§ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯å­¦ç”Ÿï¼Œæ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„å­¦ç”Ÿå­¦å·
 			Student student = (Student) request.getSession().getAttribute(
 					"loginUser");
 			String studentNum = student.getStudentNum();
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­,½«student´æÈësession¶ÔÏóÖĞ
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘,å°†studentå­˜å…¥sessionå¯¹è±¡ä¸­
 			student = ss.showInfo(studentNum);
 			request.getSession().setAttribute("loginUser", student);
 			response.sendRedirect(request.getContextPath() + "/showInfo.jsp");
 		}
 		if ("teacher".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇ½ÌÊ¦£¬ÄÃµ½session¶ÔÏóÖĞµÄ½ÌÊ¦¹¤ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯æ•™å¸ˆï¼Œæ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„æ•™å¸ˆå·¥å·
 			Teacher teacher = (Teacher) request.getSession().getAttribute(
 					"loginUser");
 			String teacherNum = teacher.getTeacherNum();
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­,½«teacher´æÈësession¶ÔÏóÖĞ
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘,å°†teacherå­˜å…¥sessionå¯¹è±¡ä¸­
 			teacher = ts.showInfo(teacherNum);
 			request.getSession().setAttribute("loginUser", teacher);
 			response.sendRedirect(request.getContextPath() + "/showInfo.jsp");
 		}
 		if ("manager".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇ¹ÜÀíÔ±£¬ÄÃµ½session¶ÔÏóÖĞµÄ¹ÜÀíÔ±¹¤ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯ç®¡ç†å‘˜ï¼Œæ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„ç®¡ç†å‘˜å·¥å·
 			Manager manager = (Manager) request.getSession().getAttribute(
 					"loginUser");
 			String managerNum = manager.getManagerNum();
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­,½«manager´æÈësession¶ÔÏóÖĞ
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘,å°†managerå­˜å…¥sessionå¯¹è±¡ä¸­
 			manager = ms.showInfo(managerNum);
 			request.getSession().setAttribute("loginUser", manager);
 			response.sendRedirect(request.getContextPath() + "/showInfo.jsp");
 		}
 	}
 
-	// Ìø×ªÏòÌí¼Ó½ÌÊ¦Ò³Ãæ
+	// è·³è½¬å‘æ·»åŠ æ•™å¸ˆé¡µé¢
 	private void toAddTeacher(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// »ñÈ¡Ñ§ÔºĞÅÏ¢£¬²¢½«dept´æÈësession¶ÔÏóÖĞ
+		// è·å–å­¦é™¢ä¿¡æ¯ï¼Œå¹¶å°†deptå­˜å…¥sessionå¯¹è±¡ä¸­
 		List<Dept> dept = ms.showDept();
 		request.getSession().setAttribute("dept", dept);
-		// »ñÈ¡ĞÂµÄ½ÌÊ¦¹¤ºÅ£¬²¢´æÈësession¶ÔÏóÖĞ
+		// è·å–æ–°çš„æ•™å¸ˆå·¥å·ï¼Œå¹¶å­˜å…¥sessionå¯¹è±¡ä¸­
 		String newTeacherNum = ms.showNewTeacherNum();
 		request.getSession().setAttribute("newTeacherNum", newTeacherNum);
-		// Ìø×ªÏòÌí¼ÓÒ³Ãæ
+		// è·³è½¬å‘æ·»åŠ é¡µé¢
 		response.sendRedirect(request.getContextPath() + "/addTeacher.jsp");
 	}
 
-	// Ìø×ªÏòÌí¼ÓÑ§ÉúÒ³Ãæ
+	// è·³è½¬å‘æ·»åŠ å­¦ç”Ÿé¡µé¢
 	private void toAddStudent(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// »ñÈ¡Ñ§ÔºĞÅÏ¢£¬²¢½«dept´æÈësession¶ÔÏóÖĞ
+		// è·å–å­¦é™¢ä¿¡æ¯ï¼Œå¹¶å°†deptå­˜å…¥sessionå¯¹è±¡ä¸­
 		List<Dept> dept = ms.showDept();
 		request.getSession().setAttribute("dept", dept);
-		// »ñÈ¡ĞÂµÄÑ§ÉúÑ§ºÅ£¬²¢´æÈësession¶ÔÏóÖĞ
+		// è·å–æ–°çš„å­¦ç”Ÿå­¦å·ï¼Œå¹¶å­˜å…¥sessionå¯¹è±¡ä¸­
 		String newStudentNum = ms.showNewStudentNum();
 		request.getSession().setAttribute("newStudentNum", newStudentNum);
-		// Ìø×ªÏòÌí¼ÓÒ³Ãæ
+		// è·³è½¬å‘æ·»åŠ é¡µé¢
 		response.sendRedirect(request.getContextPath() + "/addStudent.jsp");
 	}
 
-	// Ç°Íù¿ª·ÅÑ¡¿ÎÒ³Ãæ
+	// å‰å¾€å¼€æ”¾é€‰è¯¾é¡µé¢
 	private void toPermitCourseSelection(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÉèÖÃµ±Ç°µÄÑ§ÄêÑ§ÆÚ
+		// è®¾ç½®å½“å‰çš„å­¦å¹´å­¦æœŸ
 		Calendar now = Calendar.getInstance();
 		int year = now.get(Calendar.YEAR);
 		String schoolYear = null;
 		String semester = null;
 		if (now.get(Calendar.MONTH) <= 8 & now.get(Calendar.MONTH) >= 1) {
-			// µ±Ç°ÎªµÚ¶şÑ§ÆÚ
+			// å½“å‰ä¸ºç¬¬äºŒå­¦æœŸ
 			semester = 2 + "";
 			schoolYear = (year - 1) + "-" + year;
 		} else {
-			// µ±Ç°ÎªµÚÒ»Ñ§ÆÚ
+			// å½“å‰ä¸ºç¬¬ä¸€å­¦æœŸ
 			semester = 1 + "";
 			schoolYear = year + "-" + (year + 1);
 		}
-		// ½«schoolYear,semester´æÈësession¶ÔÏóÖĞ
+		// å°†schoolYear,semesterå­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("schoolYear", schoolYear);
 		request.getSession().setAttribute("semester", semester);
 
-		// ²éÑ¯µ±Ç°Ñ¡¿Î×´Ì¬
+		// æŸ¥è¯¢å½“å‰é€‰è¯¾çŠ¶æ€
 		boolean status = ms.showStatus();
-		// ½«status´æÈësession¶ÔÏóÖĞ
+		// å°†statuså­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("status", status);
 
-		// Ìø×ªÏò¿ª·ÅÑ¡¿ÎÒ³Ãæ
+		// è·³è½¬å‘å¼€æ”¾é€‰è¯¾é¡µé¢
 		response.sendRedirect(request.getContextPath()
 				+ "/permitCourseSelection.jsp");
 	}
 
-	// ¿ª·ÅÑ¡¿Î
+	// å¼€æ”¾é€‰è¯¾
 	private void permitCourseSelection(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String schoolYear = request.getParameter("schoolYear");
 		String semester = request.getParameter("semester");
 		String status = request.getParameter("status");
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ms.permitCourseSelection(schoolYear, semester, status);
-		// Ìø×ªÏò¿ª·ÅÑ¡¿ÎÒ³Ãæ
+		// è·³è½¬å‘å¼€æ”¾é€‰è¯¾é¡µé¢
 		toPermitCourseSelection(request, response);
 	}
 
-	// ĞŞ¸ÄÃÜÂë
+	// ä¿®æ”¹å¯†ç 
 	private void changePassword(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String newPassword = request.getParameter("newPassword");
-		// ÄÃµ½session¶ÔÏóÖĞµÄĞÅÏ¢
+		// æ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„ä¿¡æ¯
 		String userType = (String) request.getSession()
 				.getAttribute("userType");
 
 		if ("student".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇÑ§Éú£¬ÄÃµ½session¶ÔÏóÖĞµÄÑ§ÉúÑ§ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯å­¦ç”Ÿï¼Œæ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„å­¦ç”Ÿå­¦å·
 			Student student = (Student) request.getSession().getAttribute(
 					"loginUser");
 			String studentNum = student.getStudentNum();
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 			Boolean flag = ss.changePassword(studentNum, newPassword);
-			// ÒòÎª¸Ä±äÁËÃÜÂë£¬ĞèÒª½«session¶ÔÏóÖĞµÄloginUserÖØĞÂ¸³Öµ
+			// å› ä¸ºæ”¹å˜äº†å¯†ç ï¼Œéœ€è¦å°†sessionå¯¹è±¡ä¸­çš„loginUseré‡æ–°èµ‹å€¼
 			student = ss.login(studentNum, newPassword);
 			request.getSession().setAttribute("loginUser", student);
 			response.sendRedirect(request.getContextPath()
 					+ "/changePassword.jsp");
 		}
 		if ("teacher".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇ½ÌÊ¦£¬ÄÃµ½session¶ÔÏóÖĞµÄ½ÌÊ¦¹¤ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯æ•™å¸ˆï¼Œæ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„æ•™å¸ˆå·¥å·
 			Teacher teacher = (Teacher) request.getSession().getAttribute(
 					"loginUser");
 			String teacherNum = teacher.getTeacherNum();
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 			Boolean flag = ts.changePassword(teacherNum, newPassword);
-			// ÒòÎª¸Ä±äÁËÃÜÂë£¬ĞèÒª½«session¶ÔÏóÖĞµÄloginUserÖØĞÂ¸³Öµ
+			// å› ä¸ºæ”¹å˜äº†å¯†ç ï¼Œéœ€è¦å°†sessionå¯¹è±¡ä¸­çš„loginUseré‡æ–°èµ‹å€¼
 			teacher = ts.login(teacherNum, newPassword);
 			request.getSession().setAttribute("loginUser", teacher);
 			response.sendRedirect(request.getContextPath()
 					+ "/changePassword.jsp");
 		}
 		if ("manager".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇ¹ÜÀíÔ±£¬ÄÃµ½session¶ÔÏóÖĞµÄ¹ÜÀíÔ±¹¤Âë
+			// ç”¨æˆ·ç±»å‹æ˜¯ç®¡ç†å‘˜ï¼Œæ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„ç®¡ç†å‘˜å·¥ç 
 			Manager manager = (Manager) request.getSession().getAttribute(
 					"loginUser");
 			String managerNum = manager.getManagerNum();
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 			Boolean flag = ms.changePassword(managerNum, newPassword);
-			// ÒòÎª¸Ä±äÁËÃÜÂë£¬ĞèÒª½«session¶ÔÏóÖĞµÄloginUserÖØĞÂ¸³Öµ
+			// å› ä¸ºæ”¹å˜äº†å¯†ç ï¼Œéœ€è¦å°†sessionå¯¹è±¡ä¸­çš„loginUseré‡æ–°èµ‹å€¼
 			manager = ms.login(managerNum, newPassword);
 			request.getSession().setAttribute("loginUser", manager);
 			response.sendRedirect(request.getContextPath()
@@ -902,119 +902,119 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	// ÁĞ³öĞèÉóºËµÄ¿Î³Ì£¬²¢Ìø×ªÏòÉóºË¿Î³ÌÒ³Ãæ
+	// åˆ—å‡ºéœ€å®¡æ ¸çš„è¯¾ç¨‹ï¼Œå¹¶è·³è½¬å‘å®¡æ ¸è¯¾ç¨‹é¡µé¢
 	private void toExamineCourses(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄĞÅÏ¢
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„ä¿¡æ¯
 		String currentPageIndex = request.getParameter("currentPageIndex");
 		Page page = (Page) request.getSession().getAttribute("page");
 
 		if (page != null & currentPageIndex != null) {
 			int pageCount = page.getPageCount();
-			// ÅĞ¶ÏÒ³ÃæÊÇ·ñ´óÓÚ×ÜÒ³Ãæ
+			// åˆ¤æ–­é¡µé¢æ˜¯å¦å¤§äºæ€»é¡µé¢
 			if (Integer.parseInt(currentPageIndex) > pageCount) {
 				currentPageIndex = pageCount + "";
 			}
 		}
 
-		// ÅĞ¶Ïµ±Ç°Ò³ÃæÊÇ·ñÎª¿Õ»òÎªÁã
+		// åˆ¤æ–­å½“å‰é¡µé¢æ˜¯å¦ä¸ºç©ºæˆ–ä¸ºé›¶
 		if (currentPageIndex == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ò³ÃæÎªµÚÒ»Ò³
+			// é»˜è®¤ä¸ºå½“å‰é¡µé¢ä¸ºç¬¬ä¸€é¡µ
 			currentPageIndex = "1";
 		} else if ("0".equals(currentPageIndex)) {
 			currentPageIndex = "1";
 		}
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		page = ms
 				.listPageExaminedCourses(Integer.parseInt(currentPageIndex), 7);
 
-		// ½«page´æÈësession¶ÔÏóÖĞ£¬²¢Ìø×ªÒ³Ãæ
+		// å°†pageå­˜å…¥sessionå¯¹è±¡ä¸­ï¼Œå¹¶è·³è½¬é¡µé¢
 		request.getSession().setAttribute("page", page);
 		response.sendRedirect(request.getContextPath() + "/examineCourses.jsp");
 	}
 
-	// ÉóºËÒ»¸ö¿Î³Ì
+	// å®¡æ ¸ä¸€ä¸ªè¯¾ç¨‹
 	private void examineCourse(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String _op = request.getParameter("_op");
 		String courseNum = request.getParameter("id");
-		// ·Åµ½StringÊı×éÖĞ
+		// æ”¾åˆ°Stringæ•°ç»„ä¸­
 		String[] courseNums = new String[] { courseNum };
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ms.examineCourses(courseNums, _op);
 		toExamineCourses(request, response);
 	}
 
-	// ÉóºË¶à¸ö¿Î³Ì
+	// å®¡æ ¸å¤šä¸ªè¯¾ç¨‹
 	private void examineCourses(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String _op = request.getParameter("_op");
 		String ids = request.getParameter("ids");
-		// ÓÉÓÚidsºó±ß¶àÁËÒ»¸ö¶ººÅ£¬ÒªÈ¥µô
+		// ç”±äºidsåè¾¹å¤šäº†ä¸€ä¸ªé€—å·ï¼Œè¦å»æ‰
 		ids = ids.substring(0, ids.length() - 1);
 		// System.out.println(ids);
-		// ²ğ·Ö×Ö·û´®
+		// æ‹†åˆ†å­—ç¬¦ä¸²
 		String[] courseNums = ids.split(",");
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ms.examineCourses(courseNums, _op);
 		toExamineCourses(request, response);
 	}
 
-	// ĞŞ¸Ä¿Î³ÌĞÅÏ¢
+	// ä¿®æ”¹è¯¾ç¨‹ä¿¡æ¯
 	private void updateCourse(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ·â×°Ò³ÃæµÄÊı¾İ
+		// å°è£…é¡µé¢çš„æ•°æ®
 		CourseFormBean cfb = WebUtils.fillFormBean(CourseFormBean.class,
 				request);
-		// ¿½±´Êı¾İµ½Ò»¸öjavabeanÖĞ
+		// æ‹·è´æ•°æ®åˆ°ä¸€ä¸ªjavabeanä¸­
 		Course course = new Course();
-		// ¿½±´Êı¾İ
+		// æ‹·è´æ•°æ®
 		try {
 			BeanUtils.copyProperties(course, cfb);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		boolean flag = ms.updateCourse(course);
 		toUpdateCourse(request, response);
 	}
 
-	// Ìø×ªÏòĞŞ¸Ä¿Î³ÌĞÅÏ¢Ò³Ãæ
+	// è·³è½¬å‘ä¿®æ”¹è¯¾ç¨‹ä¿¡æ¯é¡µé¢
 	private void toUpdateCourse(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String courseNum = request.getParameter("courseNum");
-		// Í¨¹ıcourseNumÕÒµ½ÒªĞŞ¸ÄµÄ¿Î³Ì
+		// é€šè¿‡courseNumæ‰¾åˆ°è¦ä¿®æ”¹çš„è¯¾ç¨‹
 		Course course = ms.findCourseByCourseNum(courseNum);
-		// ½«course´æÈësession¶ÔÏóÖĞ£¬²¢Ìø×ªÒ³Ãæ
+		// å°†courseå­˜å…¥sessionå¯¹è±¡ä¸­ï¼Œå¹¶è·³è½¬é¡µé¢
 		request.getSession().setAttribute("course", course);
 		response.sendRedirect(request.getContextPath() + "/updateCourse.jsp");
 	}
 
-	// ·¢²¼Ò»ÃÅ¿Î³Ì
+	// å‘å¸ƒä¸€é—¨è¯¾ç¨‹
 	private void addCourse(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ·â×°Ò³ÃæµÄÊı¾İ
+		// å°è£…é¡µé¢çš„æ•°æ®
 		CourseFormBean cfb = WebUtils.fillFormBean(CourseFormBean.class,
 				request);
 
-		// cfbµÄ¿Î³ÌºÅÂëÎª¿Õ£¬Éú³ÉÒ»¸öËæ»úidÉèÖÃÎª¿Î³ÌºÅÂë
+		// cfbçš„è¯¾ç¨‹å·ç ä¸ºç©ºï¼Œç”Ÿæˆä¸€ä¸ªéšæœºidè®¾ç½®ä¸ºè¯¾ç¨‹å·ç 
 		cfb.setCourseNum(WebTools.createNewId());
 
-		// ¿½±´Êı¾İµ½Ò»¸öjavabeanÖĞ
+		// æ‹·è´æ•°æ®åˆ°ä¸€ä¸ªjavabeanä¸­
 		Course course = new Course();
-		// ¿½±´Êı¾İ
+		// æ‹·è´æ•°æ®
 		try {
 			BeanUtils.copyProperties(course, cfb);
 		} catch (Exception e) {
@@ -1022,27 +1022,27 @@ public class Controller extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		boolean flag = ts.addCourse(course);
 		toAddCourse(request, response);
 	}
 
-	// Ìí¼ÓÒ»¸ö½ÌÊ¦
+	// æ·»åŠ ä¸€ä¸ªæ•™å¸ˆ
 	private void addTeacher(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ·â×°Ò³ÃæµÄÊı¾İ
+		// å°è£…é¡µé¢çš„æ•°æ®
 		TeacherFormBean tfb = WebUtils.fillFormBean(TeacherFormBean.class,
 				request);
 
-		// ½ÌÊ¦ÃÜÂëÄ¬ÈÏºÍ¹¤ºÅÏàÍ¬
+		// æ•™å¸ˆå¯†ç é»˜è®¤å’Œå·¥å·ç›¸åŒ
 		tfb.setPassword(tfb.getTeacherNum());
 
-		// ¿½±´Êı¾İµ½Ò»¸öjavabeanÖĞ
+		// æ‹·è´æ•°æ®åˆ°ä¸€ä¸ªjavabeanä¸­
 		Teacher teacher = new Teacher();
 		if (tfb.getFormBirthday() != "") {
-			// ÉúÈÕ²»Îª¿Õ
-			// ÓÉÓÚÊ±¼äÊÇdateÀàĞÍ£¬ËùÒÔÊ×ÏÈ×¢²áÒ»¸öÊ±¼ä×ª»»Æ÷
+			// ç”Ÿæ—¥ä¸ä¸ºç©º
+			// ç”±äºæ—¶é—´æ˜¯dateç±»å‹ï¼Œæ‰€ä»¥é¦–å…ˆæ³¨å†Œä¸€ä¸ªæ—¶é—´è½¬æ¢å™¨
 			ConvertUtils.register(new DateLocaleConverter(), Date.class);
 			try {
 				BeanUtils.copyProperty(teacher, "birthday",
@@ -1055,10 +1055,10 @@ public class Controller extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			// Èç¹ûÉúÈÕÎª¿ÕÔò½«teacherÀïµÄbirthdayÉèÖÃÎªnull
+			// å¦‚æœç”Ÿæ—¥ä¸ºç©ºåˆ™å°†teacheré‡Œçš„birthdayè®¾ç½®ä¸ºnull
 			teacher.setBirthday(null);
 		}
-		// ¿½±´Êı¾İ
+		// æ‹·è´æ•°æ®
 		try {
 			BeanUtils.copyProperties(teacher, tfb);
 		} catch (Exception e) {
@@ -1066,27 +1066,27 @@ public class Controller extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		boolean flag = ms.addTeacher(teacher);
 		toAddTeacher(request, response);
 	}
 
-	// Ìí¼ÓÒ»¸öÑ§Éú
+	// æ·»åŠ ä¸€ä¸ªå­¦ç”Ÿ
 	private void addStudent(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ·â×°Ò³ÃæµÄÊı¾İ
+		// å°è£…é¡µé¢çš„æ•°æ®
 		StudentFormBean sfb = WebUtils.fillFormBean(StudentFormBean.class,
 				request);
 
-		// Ñ§ÉúÃÜÂëÄ¬ÈÏºÍÑ§ºÅÏàÍ¬
+		// å­¦ç”Ÿå¯†ç é»˜è®¤å’Œå­¦å·ç›¸åŒ
 		sfb.setPassword(sfb.getStudentNum());
 
-		// ¿½±´Êı¾İµ½Ò»¸öjavabeanÖĞ
+		// æ‹·è´æ•°æ®åˆ°ä¸€ä¸ªjavabeanä¸­
 		Student student = new Student();
 		if (sfb.getFormBirthday() != "") {
-			// ÉúÈÕ²»Îª¿Õ
-			// ÓÉÓÚÊ±¼äÊÇdateÀàĞÍ£¬ËùÒÔÊ×ÏÈ×¢²áÒ»¸öÊ±¼ä×ª»»Æ÷
+			// ç”Ÿæ—¥ä¸ä¸ºç©º
+			// ç”±äºæ—¶é—´æ˜¯dateç±»å‹ï¼Œæ‰€ä»¥é¦–å…ˆæ³¨å†Œä¸€ä¸ªæ—¶é—´è½¬æ¢å™¨
 			ConvertUtils.register(new DateLocaleConverter(), Date.class);
 			try {
 				BeanUtils.copyProperty(student, "birthday",
@@ -1099,10 +1099,10 @@ public class Controller extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			// Èç¹ûÉúÈÕÎª¿ÕÔò½«studentÀïµÄbirthdayÉèÖÃÎªnull
+			// å¦‚æœç”Ÿæ—¥ä¸ºç©ºåˆ™å°†studenté‡Œçš„birthdayè®¾ç½®ä¸ºnull
 			student.setBirthday(null);
 		}
-		// ¿½±´Êı¾İ
+		// æ‹·è´æ•°æ®
 		try {
 			BeanUtils.copyProperties(student, sfb);
 		} catch (Exception e) {
@@ -1110,16 +1110,16 @@ public class Controller extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		boolean flag = ms.addStudent(student);
 		toAddStudent(request, response);
 	}
 
-	// ²éÑ¯ÒÑÑ¡¿Î³Ì
+	// æŸ¥è¯¢å·²é€‰è¯¾ç¨‹
 	private void listSelectedCourses(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄĞÅÏ¢£¬²¢ÅĞ¶ÏÓÃ»§µÄÀàĞÍ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„ä¿¡æ¯ï¼Œå¹¶åˆ¤æ–­ç”¨æˆ·çš„ç±»å‹
 		String userType = (String) request.getSession()
 				.getAttribute("userType");
 		String schoolYear = request.getParameter("schoolYear");
@@ -1129,158 +1129,158 @@ public class Controller extends HttpServlet {
 
 		if (page != null & currentPageIndex != null) {
 			int pageCount = page.getPageCount();
-			// ÅĞ¶ÏÒ³ÃæÊÇ·ñ´óÓÚ×ÜÒ³Ãæ
+			// åˆ¤æ–­é¡µé¢æ˜¯å¦å¤§äºæ€»é¡µé¢
 			if (Integer.parseInt(currentPageIndex) > pageCount) {
 				currentPageIndex = pageCount + "";
 			}
 		}
 
-		// ÅĞ¶ÏÑ§ÆÚÑ§ÄêÊÇ·ñÎª¿Õ
+		// åˆ¤æ–­å­¦æœŸå­¦å¹´æ˜¯å¦ä¸ºç©º
 		if (schoolYear == null || semester == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ñ§ÄêºÍµ±Ç°Ñ§ÆÚ
+			// é»˜è®¤ä¸ºå½“å‰å­¦å¹´å’Œå½“å‰å­¦æœŸ
 			schoolYear = ms.showSchoolYear();
 			semester = ms.showSemester();
 		}
 
-		// ÅĞ¶Ïµ±Ç°Ò³ÃæÊÇ·ñÎª¿ÕÎªÁã
+		// åˆ¤æ–­å½“å‰é¡µé¢æ˜¯å¦ä¸ºç©ºä¸ºé›¶
 		if (currentPageIndex == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ò³ÃæÎªµÚÒ»Ò³
+			// é»˜è®¤ä¸ºå½“å‰é¡µé¢ä¸ºç¬¬ä¸€é¡µ
 			currentPageIndex = "1";
 		} else if ("0".equals(currentPageIndex)) {
 			currentPageIndex = "1";
 		}
 
-		// ½«schoolYear,semester´æÈësession¶ÔÏóÖĞ
+		// å°†schoolYear,semesterå­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("schoolYear", schoolYear);
 		request.getSession().setAttribute("semester", semester);
 
 		if ("student".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇÑ§Éú
-			// ÄÃµ½session¶ÔÏóÖĞµÄÑ§ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯å­¦ç”Ÿ
+			// æ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„å­¦å·
 			String studentNum = (String) request.getSession().getAttribute(
 					"username");
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 			page = ss.listPageSelectedCourses(studentNum, 1, 7);
 			boolean status = ss.showStatus();
-			// ½«status,page´æÈëµ½session¶ÔÏóÖĞ
+			// å°†status,pageå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 			request.getSession().setAttribute("status", status);
-			// ½«list´æÈëµ½session¶ÔÏóÖĞ
+			// å°†listå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 			request.getSession().setAttribute("page", page);
 			response.sendRedirect(request.getContextPath()
 					+ "/listSelectedCourses.jsp");
 		}
 	}
 
-	// ÍËÑ¡Ò»ÃÅ¿Î³Ì
+	// é€€é€‰ä¸€é—¨è¯¾ç¨‹
 	private void quit(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String courseNum = request.getParameter("id");
-		// ·Åµ½StringÊı×éÖĞ
+		// æ”¾åˆ°Stringæ•°ç»„ä¸­
 		String[] courseNums = new String[] { courseNum };
-		// ÄÃµ½session¶ÔÏóÖĞµÄÑ§ºÅ
+		// æ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„å­¦å·
 		String studentNum = (String) request.getSession().getAttribute(
 				"username");
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ss.quitCourses(studentNum, courseNums);
 		listSelectedCourses(request, response);
 	}
 
-	// ÍËÑ¡¶àÃÅ¿Î³Ì
+	// é€€é€‰å¤šé—¨è¯¾ç¨‹
 	private void quitCourses(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String ids = request.getParameter("ids");
-		// ÓÉÓÚidsºó±ß¶àÁËÒ»¸ö¶ººÅ£¬ÒªÈ¥µô
+		// ç”±äºidsåè¾¹å¤šäº†ä¸€ä¸ªé€—å·ï¼Œè¦å»æ‰
 		ids = ids.substring(0, ids.length() - 1);
-		// ²ğ·Ö×Ö·û´®
+		// æ‹†åˆ†å­—ç¬¦ä¸²
 		String[] courseNums = ids.split(",");
-		// ÄÃµ½session¶ÔÏóÖĞµÄÑ§ºÅ
+		// æ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„å­¦å·
 		String studentNum = (String) request.getSession().getAttribute(
 				"username");
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ss.quitCourses(studentNum, courseNums);
 		listSelectedCourses(request, response);
 	}
 
-	// Ñ¡ĞŞÒ»ÃÅ¿Î³Ì
+	// é€‰ä¿®ä¸€é—¨è¯¾ç¨‹
 	private void selectCourse(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String courseNum = request.getParameter("id");
-		// ·Åµ½StringÊı×éÖĞ
+		// æ”¾åˆ°Stringæ•°ç»„ä¸­
 		String[] courseNums = new String[] { courseNum };
-		// ÄÃµ½session¶ÔÏóÖĞµÄÑ§ºÅ
+		// æ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„å­¦å·
 		String studentNum = (String) request.getSession().getAttribute(
 				"username");
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ss.selectCourses(studentNum, courseNums);
 		listCourses(request, response);
 	}
 
-	// Ñ¡ĞŞ¶àÃÅ¿Î³Ì
+	// é€‰ä¿®å¤šé—¨è¯¾ç¨‹
 	private void selectCourses(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String ids = request.getParameter("ids");
-		// ÓÉÓÚidsºó±ß¶àÁËÒ»¸ö¶ººÅ£¬ÒªÈ¥µô
+		// ç”±äºidsåè¾¹å¤šäº†ä¸€ä¸ªé€—å·ï¼Œè¦å»æ‰
 		ids = ids.substring(0, ids.length() - 1);
-		// ²ğ·Ö×Ö·û´®
+		// æ‹†åˆ†å­—ç¬¦ä¸²
 		String[] courseNums = ids.split(",");
-		// ÄÃµ½session¶ÔÏóÖĞµÄÑ§ºÅ
+		// æ‹¿åˆ°sessionå¯¹è±¡ä¸­çš„å­¦å·
 		String studentNum = (String) request.getSession().getAttribute(
 				"username");
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ss.selectCourses(studentNum, courseNums);
 		listCourses(request, response);
 	}
 
-	// É¾³ıÒ»ÃÅ¿Î³Ì
+	// åˆ é™¤ä¸€é—¨è¯¾ç¨‹
 	private void deleteCourse(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String courseNum = request.getParameter("id");
-		// ·Åµ½StringÊı×éÖĞ
+		// æ”¾åˆ°Stringæ•°ç»„ä¸­
 		String[] courseNums = new String[] { courseNum };
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ms.deleteCourses(courseNums);
 		listCourses(request, response);
 	}
 
-	// É¾³ı¶àÃÅ¿Î³Ì
+	// åˆ é™¤å¤šé—¨è¯¾ç¨‹
 	private void deleteCourses(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½Ò³Ãæ´«µİµÄÊı¾İ
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„æ•°æ®
 		String ids = request.getParameter("ids");
-		// ÓÉÓÚidsºó±ß¶àÁËÒ»¸ö¶ººÅ£¬ÒªÈ¥µô
+		// ç”±äºidsåè¾¹å¤šäº†ä¸€ä¸ªé€—å·ï¼Œè¦å»æ‰
 		ids = ids.substring(0, ids.length() - 1);
-		// ²ğ·Ö×Ö·û´®
+		// æ‹†åˆ†å­—ç¬¦ä¸²
 		String[] courseNums = ids.split(",");
 
-		// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+		// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 		Boolean flag = ms.deleteCourses(courseNums);
 		listCourses(request, response);
 	}
 
-	// ²éÑ¯¿Î³ÌĞÅÏ¢
+	// æŸ¥è¯¢è¯¾ç¨‹ä¿¡æ¯
 	private void listCourses(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// ÄÃµ½sessionÀïµÄĞÅÏ¢
+		// æ‹¿åˆ°sessioné‡Œçš„ä¿¡æ¯
 		String userType = (String) request.getSession()
 				.getAttribute("userType");
-		// ÄÃµ½Ò³Ãæ´«µİµÄĞÅÏ¢
+		// æ‹¿åˆ°é¡µé¢ä¼ é€’çš„ä¿¡æ¯
 		String schoolYear = request.getParameter("schoolYear");
 		String semester = request.getParameter("semester");
 		String currentPageIndex = request.getParameter("currentPageIndex");
@@ -1288,85 +1288,85 @@ public class Controller extends HttpServlet {
 
 		if (page != null & currentPageIndex != null) {
 			int pageCount = page.getPageCount();
-			// ÅĞ¶ÏÒ³ÃæÊÇ·ñ´óÓÚ×ÜÒ³Ãæ
+			// åˆ¤æ–­é¡µé¢æ˜¯å¦å¤§äºæ€»é¡µé¢
 			if (Integer.parseInt(currentPageIndex) > pageCount) {
 				currentPageIndex = pageCount + "";
 			}
 		}
 
-		// ÅĞ¶ÏÑ§ÆÚÑ§ÄêÊÇ·ñÎª¿Õ
+		// åˆ¤æ–­å­¦æœŸå­¦å¹´æ˜¯å¦ä¸ºç©º
 		if (schoolYear == null || semester == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ñ§ÄêºÍµ±Ç°Ñ§ÆÚ
+			// é»˜è®¤ä¸ºå½“å‰å­¦å¹´å’Œå½“å‰å­¦æœŸ
 			schoolYear = ms.showSchoolYear();
 			semester = ms.showSemester();
 		}
 
-		// ÅĞ¶Ïµ±Ç°Ò³ÃæÊÇ·ñÎª¿Õ»òÎªÁã
+		// åˆ¤æ–­å½“å‰é¡µé¢æ˜¯å¦ä¸ºç©ºæˆ–ä¸ºé›¶
 		if (currentPageIndex == null) {
-			// Ä¬ÈÏÎªµ±Ç°Ò³ÃæÎªµÚÒ»Ò³
+			// é»˜è®¤ä¸ºå½“å‰é¡µé¢ä¸ºç¬¬ä¸€é¡µ
 			currentPageIndex = "1";
 		} else if ("0".equals(currentPageIndex)) {
 			currentPageIndex = "1";
 		}
 
-		// ½«schoolYear,semester´æÈësession¶ÔÏóÖĞ
+		// å°†schoolYear,semesterå­˜å…¥sessionå¯¹è±¡ä¸­
 		request.getSession().setAttribute("schoolYear", schoolYear);
 		request.getSession().setAttribute("semester", semester);
 
-		// ÅĞ¶ÏÓÃ»§µÄÀàĞÍ
+		// åˆ¤æ–­ç”¨æˆ·çš„ç±»å‹
 		if ("student".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇÑ§Éú
+			// ç”¨æˆ·ç±»å‹æ˜¯å­¦ç”Ÿ
 
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 			page = ss.listPageCourses(Integer.parseInt(currentPageIndex), 7,
 					schoolYear, semester);
 			boolean status = ss.showStatus();
-			// ½«status,page´æÈëµ½session¶ÔÏóÖĞ
+			// å°†status,pageå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 			request.getSession().setAttribute("status", status);
 			request.getSession().setAttribute("page", page);
 			response.sendRedirect(request.getContextPath()
 					+ "/listAllCourses.jsp");
 		} else if ("teacher".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇ½ÌÊ¦
-			// ´ÓsessionÖĞ»ñÈ¡½ÌÊ¦¹¤ºÅ
+			// ç”¨æˆ·ç±»å‹æ˜¯æ•™å¸ˆ
+			// ä»sessionä¸­è·å–æ•™å¸ˆå·¥å·
 			Teacher teacher = (Teacher) request.getSession().getAttribute(
 					"loginUser");
 			String teacherNum = teacher.getTeacherNum();
 
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 			page = ts
 					.listPageCourses(teacherNum,
 							Integer.parseInt(currentPageIndex), 7, schoolYear,
 							semester);
 			boolean status = ts.showStatus();
-			// ½«status,page´æÈëµ½session¶ÔÏóÖĞ
+			// å°†status,pageå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 			request.getSession().setAttribute("status", status);
 			request.getSession().setAttribute("page", page);
 			response.sendRedirect(request.getContextPath()
 					+ "/listAllCourses.jsp");
 		} else if ("manager".equals(userType)) {
-			// ÓÃ»§ÀàĞÍÊÇ¹ÜÀíÔ±
+			// ç”¨æˆ·ç±»å‹æ˜¯ç®¡ç†å‘˜
 
-			// µ÷ÓÃservice²ãÍê³ÉÒµÎñÂß¼­
+			// è°ƒç”¨serviceå±‚å®Œæˆä¸šåŠ¡é€»è¾‘
 			page = ms.listPageCourses(Integer.parseInt(currentPageIndex), 7,
 					schoolYear, semester);
-			// ½«page´æÈëµ½session¶ÔÏóÖĞ
+			// å°†pageå­˜å…¥åˆ°sessionå¯¹è±¡ä¸­
 			request.getSession().setAttribute("page", page);
 			response.sendRedirect(request.getContextPath()
 					+ "/listAllCourses.jsp");
 		}
 	}
 
-	// ½øĞĞÓÃ»§µÇÂ½
+	// è¿›è¡Œç”¨æˆ·ç™»é™†
 	private void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ½«µ±Ç°Ñ§ÄêÑ§ÆÚ´æÈësession¶ÔÏóÖĞ
+		// å°†å½“å‰å­¦å¹´å­¦æœŸå­˜å…¥sessionå¯¹è±¡ä¸­
 		String schoolYear = ms.showSchoolYear();
 		String semester = ms.showSemester();
 		request.getSession().setAttribute("schoolYear", schoolYear);
 		request.getSession().setAttribute("semester", semester);
 
-		// ½øĞĞµÇÂ¼ÑéÖ¤
+		// è¿›è¡Œç™»å½•éªŒè¯
 		request.getRequestDispatcher("/LoginServlet")
 				.forward(request, response);
 	}
